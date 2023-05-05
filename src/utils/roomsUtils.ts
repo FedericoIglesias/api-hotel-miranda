@@ -2,7 +2,7 @@ import { StatusRoom, TypeRoom } from "../enum";
 import { AddNewRoom } from "../types";
 
 const parseFoto = (fotoFromReq: any): string => {
-  if (typeof fotoFromReq !== "string") {
+  if (typeof fotoFromReq !== "object") {
     throw new Error('Photo not be a object')
   }
   return fotoFromReq;
@@ -49,6 +49,7 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
   }
   return statusFromReq;
 };
+
 
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {

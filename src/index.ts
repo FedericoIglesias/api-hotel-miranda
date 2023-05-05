@@ -1,21 +1,25 @@
-import express from 'express'
-import router from './routes/rooms'
+import express from "express";
+import routerRoom from "./routes/roomsRoutes";
+import routerBooking from "./routes/bookingsRoutes";
 
 
-const app = express()
 
-app.use( express.json( ))
+const app = express();
 
-const port: number = 3000
+app.use(express.json());
 
-app.get( '/', (_req , res) => {
-    console.log('hi, i am the server ');
-    res.send('UwU 2.0 ...')
-})
+const port: number = 3000;
 
-app.use('/rooms', router)
+app.get("/", (_req, res) => {
+  console.log("hi, i am the server ");
+  res.send("UwU 2.0 ...");
+});
 
-app.listen( port ,() => {
-    console.log(`Server run in the port ${port}` );
-    
-})
+app.use("/rooms", routerRoom);
+app.use("/bookings", routerBooking);
+// app.use("/users", routerUsers);
+// app.use("/contacts", routerContacts);
+
+app.listen(port, () => {
+  console.log(`Server run in the port ${port}`);
+});

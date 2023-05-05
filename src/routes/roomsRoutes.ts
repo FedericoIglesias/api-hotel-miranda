@@ -2,18 +2,18 @@ import express from "express";
 import * as roomsService from "../services/roomsService";
 import { verifyIdDelete, verifyNewRoom } from "../utils/roomsUtils";
 
-const router = express.Router();
+const routerRoom = express.Router();
 
-router.get("/", (req, res) => {
+routerRoom.get("/", (req, res) => {
   res.send(roomsService.getRooms());
 });
 
-router.get("/:id", (req, res) => {
+routerRoom.get("/:id", (req, res) => {
   const room = roomsService.getIdRoom(+req.params.id);
   return room !== undefined ? res.send(room) : res.send(404);
 });
 
-router.delete("/", (req, res) => {
+routerRoom.delete("/", (req, res) => {
     try{
         const id = verifyIdDelete(req.body);
 
@@ -26,7 +26,7 @@ router.delete("/", (req, res) => {
     }
 });
 
-router.post("/", (req, res) => {
+routerRoom.post("/", (req, res) => {
   try {
     const veryfyRoomReq = verifyNewRoom(req.body);
 
@@ -38,6 +38,6 @@ router.post("/", (req, res) => {
   }
 });
 
-router.put("/", (req, res) => {});
+routerRoom.put("/", (req, res) => {});
 
-export default router;
+export default routerRoom;

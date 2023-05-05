@@ -1,8 +1,13 @@
 import roomsData from "../data/rooms.json";
+import { write } from "../functions";
 import { Room, AddNewRoom } from "../types";
+import * as fs from 'fs'
 
 
-let rooms: Room[] = roomsData as Room[];
+
+
+
+let rooms: Room[] = roomsData as Room[] ;
 
 export const getRooms = (): Room[] => rooms;
 
@@ -18,10 +23,12 @@ export const addRoom = (addNewRoom: AddNewRoom ): Room => {
         ...addNewRoom
     }
     rooms.push(newRoom)
+    write('src/data/rooms.json', rooms)
     return newRoom
-}
-
-export const deleteRoom = (id: number): Room[] =>{
-  rooms = rooms.filter(r => r.id !== id)
+  }
+  
+  export const deleteRoom = (id: number): Room[] =>{
+    rooms = rooms.filter(r => r.id !== id)
+    write('src/data/rooms.json', rooms)
   return rooms
 }
