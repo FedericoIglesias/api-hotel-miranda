@@ -24,18 +24,18 @@ export interface Booking {
 
 export type AddNewBooking = Omit<Booking, "id">;
 
-export interface Users {
+export interface User {
   id: number;
   name: string;
   email: string;
   startDate: string;
   description: string;
-  conctac: number;
+  phone: string;
   status: boolean;
   password: string;
 }
 
-export type AddNewUsers = Omit<Users, "id">;
+export type AddNewUser = Omit<User, "id">;
 
 export interface Contact {
   id: number;

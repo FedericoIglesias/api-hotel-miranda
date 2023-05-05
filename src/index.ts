@@ -1,6 +1,7 @@
 import express from "express";
 import routerRoom from "./routes/roomsRoutes";
 import routerBooking from "./routes/bookingsRoutes";
+import routerUser from "./routes/usersRoutes";
 
 
 
@@ -17,7 +18,7 @@ app.get("/", (_req, res) => {
 
 app.use("/rooms", routerRoom);
 app.use("/bookings", routerBooking);
-// app.use("/users", routerUsers);
+app.use("/users", routerUser);
 // app.use("/contacts", routerContacts);
 
 app.listen(port, () => {

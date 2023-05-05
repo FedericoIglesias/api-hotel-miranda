@@ -1,7 +1,7 @@
 import { AddNewBooking, Booking } from "../types";
 
 
-const parseName = (nameFromReq: any): string =>{
+export const parseName = (nameFromReq: any): string =>{
     if(typeof nameFromReq !== 'string'){
         throw new Error ('Name not be string')
     }
@@ -26,7 +26,7 @@ const parseCheckOut = (checkOutFromReq: any): string =>{
     return checkOutFromReq
 }
 
-const parseStatus = (statusFromReq: any): boolean =>{
+export const parseStatus = (statusFromReq: any): boolean =>{
     if(typeof statusFromReq !== 'boolean'){
         throw new Error ('status not be boolean')
     }
