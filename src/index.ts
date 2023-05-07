@@ -2,6 +2,7 @@ import express from "express";
 import routerRoom from "./routes/roomsRoutes";
 import routerBooking from "./routes/bookingsRoutes";
 import routerUser from "./routes/usersRoutes";
+import routerContact from "./routes/contactRoutes";
 
 
 
@@ -19,7 +20,7 @@ app.get("/", (_req, res) => {
 app.use("/rooms", routerRoom);
 app.use("/bookings", routerBooking);
 app.use("/users", routerUser);
-// app.use("/contacts", routerContacts);
+app.use("/contacts", routerContact);
 
 app.listen(port, () => {
   console.log(`Server run in the port ${port}`);

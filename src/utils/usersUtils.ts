@@ -19,7 +19,7 @@ if(typeof descriptionFromReq !== 'string'){
 }
 return descriptionFromReq
 }
-const parsePhone = (phoneFromReq: any): string =>{
+export const parsePhone = (phoneFromReq: any): string =>{
 if(typeof phoneFromReq !== 'string'){
     throw new Error('Phone no be string')
 }

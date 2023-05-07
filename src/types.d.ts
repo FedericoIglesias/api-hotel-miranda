@@ -41,7 +41,7 @@ export interface Contact {
   id: number;
   name: string;
   email: string;
-  contact: string;
+  phone: number;
   date: string;
   subject: string;
 }
