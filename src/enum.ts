@@ -8,3 +8,9 @@ export enum TypeRoom  {
     DoubleBed = 'Double Bed',
     Deluxe = 'Deluxe'
 }
+
+export enum StatusBooking  {
+    InProgress = 'In Progress',
+    CheckIn = 'Check In',
+    CheckOut = 'Check Out'
+}

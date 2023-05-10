@@ -1,33 +1,44 @@
-import { StatusRoom, TypeRoom } from "./enum";
+import { StatusRoom, TypeRoom, StatusBooking } from "./enum";
 
 export interface Room {
   id: number;
   photo: any;
   numberRoom: number;
   roomType: TypeRoom;
-  amenities: string;
+  amenities: string[];
+  price: number;
+  offerPercent: number;
+  status: StatusRoom;
+}
+export interface RoomSQL {
+  id: number;
+  photo: any;
+  numberRoom: number;
+  roomType: TypeRoom;
+  amenities: string[];
   price: number;
   offerPercent: number;
   status: StatusRoom;
 }
 
 export type AddNewRoom = Omit<Room, "id">;
+export type AddNewRoomSQL = Omit<RoomSQL, "id">;
 
 export interface Booking {
   id: number;
   name: string;
-  orderDate: string;
-  checkIn: string;
-  checkOut: string;
-  status: string; 
+  orderDate: number;
+  checkIn: number;
+  checkOut: number;
+  status: StatusBooking; 
 }
 export interface BookingSQL {
-  id?: number;
+  id: number;
   name: string;
-  orderDate: string;
-  checkIn: string;
-  checkOut: string;
-  status: string; 
+  orderDate: number;
+  checkIn: number;
+  checkOut: number;
+  status: StatusBooking; 
 }
 
 export type AddNewBooking = Omit<Booking, "id">;
@@ -37,9 +48,9 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  startDate: string;
+  startDate: Date;
   description: string;
-  phone: string;
+  phone: number;
   status: boolean;
   password: string;
 }
@@ -47,7 +58,7 @@ export interface UserSQL {
   id: number;
   name: string;
   email: string;
-  startDate: string;
+  startDate: number;
   description: string;
   phone: string;
   status: string;
@@ -65,10 +76,16 @@ export interface Contact {
   date: string;
   subject: string;
 }
+export interface ContactSQL {
+  id: number;
+  name: string;
+  email: string;
+  phone: string;
+  date: number;
+  subject: string;
+}
 
 export type AddNewContact = Omit<Contact, "id">;
+export type AddNewContactsSQL = Omit<ContactSQL, "id">;
 
 
-interface RoomSQL extends RowDataPacket{
-  
-}
