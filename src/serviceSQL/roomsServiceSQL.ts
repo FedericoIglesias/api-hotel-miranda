@@ -36,7 +36,7 @@ export const deleteRoom = async (id: number) => {
   return resp;
 };
 
-export const updateRoom = async (id: number, putRoom: Room) => {
+export const updateRoom = async (putRoom: Room) => {
   
   const resp = await callDB(
     "UPDATE rooms SET photo=?, numberRoom=?, roomType=?, amenities=?, price=?, offerPercent=?, status=?  WHERE id = ?",
@@ -48,7 +48,7 @@ export const updateRoom = async (id: number, putRoom: Room) => {
       putRoom.price,
       putRoom.offerPercent,
       putRoom.status,
-      id
+      putRoom.id
     ]
   );
 };

@@ -42,7 +42,7 @@ routerRoom.post("/", (req, res) => {
 });
 
 routerRoom.put("/", (req, res) => {
-  roomsService.updateRoom(req.body.id, req.body.obj)
+  roomsService.updateRoom(req.body)
 });
 
 export default routerRoom;

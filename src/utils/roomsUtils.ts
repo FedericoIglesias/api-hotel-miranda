@@ -1,11 +1,11 @@
 import { StatusRoom, TypeRoom } from "../enum";
 import { AddNewRoom } from "../types";
 
-const parseFoto = (fotoFromReq: any): string => {
-  if (typeof fotoFromReq !== "object") {
+const parsePhoto = (photoFromReq: any): string => {
+  if (typeof photoFromReq !== "object") {
     throw new Error('Photo not be a object')
   }
-  return fotoFromReq;
+  return photoFromReq;
 };
 
 const parseNumberRoom = (numberRoomFromReq: any): number => {
@@ -54,7 +54,7 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {
     photo: obj.photo,
-    // photos: parseFoto(obj.photos),
+    // photo: parseFoto(obj.photos),
     numberRoom: parseNumberRoom(obj.numberRoom),
     roomType: parseRoomType(obj.roomType),
     amenities: parseAmenities(obj.amenities),

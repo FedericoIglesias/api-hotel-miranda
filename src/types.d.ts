@@ -19,10 +19,19 @@ export interface Booking {
   orderDate: string;
   checkIn: string;
   checkOut: string;
-  status: boolean;
+  status: string; 
+}
+export interface BookingSQL {
+  id?: number;
+  name: string;
+  orderDate: string;
+  checkIn: string;
+  checkOut: string;
+  status: string; 
 }
 
 export type AddNewBooking = Omit<Booking, "id">;
+export type AddNewBookingSQL = Omit<BookingSQL, "id">;
 
 export interface User {
   id: number;

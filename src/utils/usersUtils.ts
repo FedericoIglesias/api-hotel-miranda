@@ -40,7 +40,8 @@ const newUser = {
     startDate: parseStartDate(obj.startDate),
     description: parseDescription(obj.description),
     phone: parsePhone(obj.phone),
-    status: parseStatus(obj.status),
+    status: obj.status,
+    // status: parseStatus(obj.status),
     password: parsePassword(obj.password),
 }
 return newUser

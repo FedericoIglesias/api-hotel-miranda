@@ -1,5 +1,6 @@
 import express from "express";
-import * as bookingsService from '../servicesFS/bookingsService'
+// import * as bookingsService from '../servicesFS/bookingsService'
+import * as bookingsService from '../serviceSQL/bookingsServiceSQL'
 import { verifyNewBooking } from "../utils/bookingsUtils";
 import { verifyIdDelete } from "../utils/roomsUtils";
 
@@ -40,6 +41,8 @@ routerBooking.post("/", (req, res) => {
   }
 });
 
-routerBooking.put("/", (req, res) => {});
+routerBooking.put("/", (req, res) => {
+  bookingsService.updateBooking(req.body)
+});
 
 export default routerBooking;
