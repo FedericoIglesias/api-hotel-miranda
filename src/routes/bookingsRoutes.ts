@@ -1,5 +1,5 @@
 import express from "express";
-import * as bookingsService from '../services/bookingsService'
+import * as bookingsService from '../servicesFS/bookingsService'
 import { verifyNewBooking } from "../utils/bookingsUtils";
 import { verifyIdDelete } from "../utils/roomsUtils";
 

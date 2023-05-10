@@ -1,5 +1,5 @@
 import express from "express";
-import * as contactService from "../services/contactService";
+import * as contactService from "../servicesFS/contactService";
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewcontact } from "../utils/contactUtils";
 

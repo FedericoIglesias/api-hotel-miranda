@@ -1,5 +1,5 @@
 import express from "express";
-import * as usersService from '../services/usersService'
+import * as usersService from '../servicesFS/usersService'
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewUser } from "../utils/usersUtils";
 

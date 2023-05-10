@@ -2,8 +2,8 @@ import { StatusRoom, TypeRoom } from "./enum";
 
 export interface Room {
   id: number;
-  foto: any;
-  numberRoom: string;
+  photo: any;
+  numberRoom: number;
   roomType: TypeRoom;
   amenities: string;
   price: number;
@@ -47,3 +47,8 @@ export interface Contact {
 }
 
 export type AddNewContact = Omit<Contact, "id">;
+
+
+interface RoomSQL extends RowDataPacket{
+  
+}

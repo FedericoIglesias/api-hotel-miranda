@@ -1,12 +1,15 @@
 import express from "express";
-import * as roomsService from "../services/roomsService";
+// import * as roomsService from "../services/roomsService";
+import * as roomsService from "../serviceSQL/roomsServiceSQL"
 import { verifyIdDelete, verifyNewRoom } from "../utils/roomsUtils";
+
 
 const routerRoom = express.Router();
 
 routerRoom.get("/", (req, res) => {
   res.send(roomsService.getRooms());
 });
+
 
 routerRoom.get("/:id", (req, res) => {
   const room = roomsService.getIdRoom(+req.params.id);

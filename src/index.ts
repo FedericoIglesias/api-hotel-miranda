@@ -6,6 +6,7 @@ import routerContact from "./routes/contactRoutes";
 
 
 
+
 const app = express();
 
 app.use(express.json());
@@ -25,3 +26,4 @@ app.use("/contacts", routerContact);
 app.listen(port, () => {
   console.log(`Server run in the port ${port}`);
 });
+

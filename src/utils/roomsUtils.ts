@@ -8,8 +8,8 @@ const parseFoto = (fotoFromReq: any): string => {
   return fotoFromReq;
 };
 
-const parseNumberRoom = (numberRoomFromReq: any): string => {
-  if (typeof numberRoomFromReq !== "string") {
+const parseNumberRoom = (numberRoomFromReq: any): number => {
+  if (typeof numberRoomFromReq !== "number") {
     throw new Error("NumberRoom no be string");
   }
   return numberRoomFromReq;
@@ -53,7 +53,8 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
 
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {
-    foto: parseFoto(obj.foto),
+    photo: obj.photo,
+    // photos: parseFoto(obj.photos),
     numberRoom: parseNumberRoom(obj.numberRoom),
     roomType: parseRoomType(obj.roomType),
     amenities: parseAmenities(obj.amenities),
