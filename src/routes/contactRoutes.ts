@@ -1,5 +1,6 @@
 import express from "express";
-import * as contactService from "../servicesFS/contactService";
+// import * as contactService from "../servicesFS/contactService";
+import * as contactService from "../serviceSQL/contactServiceSQL";
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewcontact } from "../utils/contactUtils";
 
@@ -39,6 +40,8 @@ routerContact.post("/", (req, res) => {
   }
 });
 
-routerContact.put("/", (req, res) => {});
+routerContact.put("/", (req, res) => {
+  contactService.updateContact(req.body)
+});
 
 export default routerContact;
