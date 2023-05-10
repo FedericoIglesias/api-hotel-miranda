@@ -1,5 +1,6 @@
 import express from "express";
-import * as usersService from '../servicesFS/usersService'
+// import * as usersService from '../servicesFS/usersService'
+import * as usersService from '../serviceSQL/userServiceSQL'
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewUser } from "../utils/usersUtils";
 
@@ -39,6 +40,8 @@ routerUser.post("/", (req, res) => {
   }
 });
 
-routerUser.put("/", (req, res) => {});
+routerUser.put("/", (req, res) => {
+  usersService.updateUser(req.body)
+});
 
 export default routerUser;

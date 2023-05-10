@@ -43,8 +43,19 @@ export interface User {
   status: boolean;
   password: string;
 }
+export interface UserSQL {
+  id: number;
+  name: string;
+  email: string;
+  startDate: string;
+  description: string;
+  phone: string;
+  status: string;
+  password: string;
+}
 
 export type AddNewUser = Omit<User, "id">;
+export type AddNewUserSQL = Omit<UserSQL, "id">;
 
 export interface Contact {
   id: number;

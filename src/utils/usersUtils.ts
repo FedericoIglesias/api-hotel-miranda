@@ -1,4 +1,4 @@
-import { AddNewUser } from "../types";
+import { AddNewUser, AddNewUserSQL } from "../types";
 import { parseName, parseStatus } from "./bookingsUtils";
 
 const parseEmail = (emailFromReq: any): string =>{
@@ -33,7 +33,7 @@ return passwordFromReq
 }
 
 
-export const verifyNewUser = (obj: any): AddNewUser => {
+export const verifyNewUser = (obj: any): AddNewUserSQL => {
 const newUser = {
     name: parseName(obj.name),
     email: parseEmail(obj.email),
