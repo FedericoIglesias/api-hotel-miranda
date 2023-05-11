@@ -3,6 +3,7 @@ import { AddNewRoomSQL } from "../types";
 import { StatusRoom, TypeRoom } from "../enum";
 import * as roomService from '../serviceSQL/roomsServiceSQL'
 
+
 const createRandomRoom = (): AddNewRoomSQL => {
    return {
     photo: faker.animal.bear(),
@@ -14,8 +15,9 @@ const createRandomRoom = (): AddNewRoomSQL => {
     status: faker.helpers.arrayElement([StatusRoom.Available, StatusRoom.Booked])
 }}
 
-
-for(let i = 0; i < 10; i++ ){
-    const room = createRandomRoom()
-    roomService.addRoom(room)
-}
+export const  generateRoom = async (cant: number) => {
+    for(let i = 0; i < cant; i++ ){
+        const room = createRandomRoom()
+        await roomService.addRoom(room)
+    }
+    }

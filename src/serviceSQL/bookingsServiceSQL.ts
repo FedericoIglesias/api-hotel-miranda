@@ -1,8 +1,16 @@
+import { OkPacket, RowDataPacket } from "mysql2";
 import { callDB } from "../mySQL";
 import { AddNewBooking, AddNewBookingSQL, Booking } from "../types";
 
 
-export const getBookings = async () => await callDB('SELECT * FROM bookings');
+export const getBookings = async () => {
+    let bookings: RowDataPacket[] = await callDB('SELECT * FROM bookings');
+    return(
+        bookings.forEach(element => {
+            
+        });
+    )
+}
 
 export const getIdBooking = async (id: number) => {
   return await callDB("SELECT * FROM bookings WHERE id=?", [id]);
@@ -10,12 +18,13 @@ export const getIdBooking = async (id: number) => {
 
 export const addBooking = async (addNewBooking: AddNewBookingSQL) => {
     await callDB(
-        "INSERT INTO bookings (name, oderDate, checkIn, checkOut, status) VALUES (?,?,?,?,?,)",
+        "INSERT INTO bookings (name, orderDate, checkIn, checkOut, idRoom, status) VALUES (?,?,?,?,?,?)",
         [
             addNewBooking.name,
             addNewBooking.orderDate,
             addNewBooking.checkIn,
             addNewBooking.checkOut,
+            addNewBooking.idRoom,
             addNewBooking.status
         ])
 };

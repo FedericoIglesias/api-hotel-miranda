@@ -14,8 +14,9 @@ function createRandomContact(): AddNewContactsSQL {
     };
   }
 
-
-  for(let i = 0; i < 10; i++){
+export const generateContact = async (cant: number) =>{
+  for(let i = 0; i < cant; i++){
     const contact = createRandomContact()
-    contactService.addContact(contact)
+    await contactService.addContact(contact)
   }
+}

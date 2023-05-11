@@ -1,4 +1,4 @@
-import mysql from "mysql2/promise";
+import mysql, { RowDataPacket } from "mysql2/promise";
 
 const configDB = {
   host: "localhost",
@@ -7,7 +7,7 @@ const configDB = {
   database: "hotel_miranda",
 };
 
-export const callDB = async (query: string, params?: (string | number)[]) => {
+export const callDB = async (query: string, params?: (string | number)[]): RowDataPacket[] => {
   const connection = await mysql.createConnection(configDB);
   const [resp] = await connection.execute(query, params);
   console.log(resp);

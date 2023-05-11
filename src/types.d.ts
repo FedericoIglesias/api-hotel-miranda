@@ -30,6 +30,7 @@ export interface Booking {
   orderDate: number;
   checkIn: number;
   checkOut: number;
+  idRoom: number;
   status: StatusBooking; 
 }
 export interface BookingSQL {
@@ -38,6 +39,7 @@ export interface BookingSQL {
   orderDate: number;
   checkIn: number;
   checkOut: number;
+  idRoom: number;
   status: StatusBooking; 
 }
 
@@ -48,10 +50,10 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  startDate: Date;
+  startDate: number;
   description: string;
   phone: number;
-  status: boolean;
+  status: string;
   password: string;
 }
 export interface UserSQL {

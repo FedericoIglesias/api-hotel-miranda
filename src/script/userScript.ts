@@ -15,8 +15,9 @@ import * as userService from '../serviceSQL/userServiceSQL'
 }
 
 
-
-for(let i = 0; i < 10; i++){
-  const user = createRandomUser()
-  userService.addUser(user)
+export const  generateUser = async (cant: number) =>{
+  for(let i = 0; i < cant; i++){
+    const user = createRandomUser()
+    await userService.addUser(user)
+  }
 }
