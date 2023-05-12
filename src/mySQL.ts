@@ -1,4 +1,5 @@
-import mysql, { RowDataPacket } from "mysql2/promise";
+import { OkPacket } from "mysql";
+import mysql, { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 
 const configDB = {
   host: "localhost",
@@ -7,10 +8,13 @@ const configDB = {
   database: "hotel_miranda",
 };
 
-export const callDB = async (query: string, params?: (string | number)[]): RowDataPacket[] => {
+export async function callDB<T extends RowDataPacket[] | OkPacket >(
+  query: string,
+  params?: (string | number)[]
+): Promise<T> {
   const connection = await mysql.createConnection(configDB);
-  const [resp] = await connection.execute(query, params);
+  const [resp]: any = await connection.execute( query, params );
   console.log(resp);
-  
+
   return resp;
-};
+}

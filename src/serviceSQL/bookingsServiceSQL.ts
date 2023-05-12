@@ -1,15 +1,11 @@
 import { OkPacket, RowDataPacket } from "mysql2";
 import { callDB } from "../mySQL";
-import { AddNewBooking, AddNewBookingSQL, Booking } from "../types";
+import { AddNewBookingSQL, BookingSQL } from "../types";
 
 
-export const getBookings = async () => {
-    let bookings: RowDataPacket[] = await callDB('SELECT * FROM bookings');
-    return(
-        bookings.forEach(element => {
-            
-        });
-    )
+export const getBookings = async (): Promise<BookingSQL[]> => {
+    let bookings: BookingSQL[]  = await callDB<BookingSQL[]>('SELECT * FROM bookings')
+    return bookings
 }
 
 export const getIdBooking = async (id: number) => {

@@ -1,3 +1,4 @@
+import { RowDataPacket } from "mysql2";
 import { StatusRoom, TypeRoom, StatusBooking } from "./enum";
 
 export interface Room {
@@ -10,7 +11,7 @@ export interface Room {
   offerPercent: number;
   status: StatusRoom;
 }
-export interface RoomSQL {
+export interface RoomSQL extends RowDataPacket {
   id: number;
   photo: any;
   numberRoom: number;
@@ -33,7 +34,7 @@ export interface Booking {
   idRoom: number;
   status: StatusBooking; 
 }
-export interface BookingSQL {
+export interface BookingSQL extends RowDataPacket {
   id: number;
   name: string;
   orderDate: number;
@@ -56,7 +57,7 @@ export interface User {
   status: string;
   password: string;
 }
-export interface UserSQL {
+export interface UserSQL extends RowDataPacket {
   id: number;
   name: string;
   email: string;
@@ -78,7 +79,7 @@ export interface Contact {
   date: string;
   subject: string;
 }
-export interface ContactSQL {
+export interface ContactSQL extends RowDataPacket {
   id: number;
   name: string;
   email: string;

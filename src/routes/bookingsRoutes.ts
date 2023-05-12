@@ -7,42 +7,46 @@ import { verifyIdDelete } from "../utils/roomsUtils";
 
 const routerBooking = express.Router();
 
-routerBooking.get("/", (req, res) => {
-  res.send(bookingsService.getBookings());
+routerBooking.get("/", async (req, res) => {
+  const book = await bookingsService.getBookings()
+  res.send(book);
 });
 
-routerBooking.get("/:id", (req, res) => {
-  const room = bookingsService.getIdBooking(+req.params.id);
-  return room !== undefined ? res.send(room) : res.send(404);
+routerBooking.get("/:id", async (req, res) => {
+  const book = await bookingsService.getIdBooking(+req.params.id);
+  return book !== undefined ? res.send(book) : res.send(404);
 });
 
-routerBooking.delete("/", (req, res) => {
+routerBooking.delete("/", async (req, res) => {
     try{
         const id = verifyIdDelete(req.body);
 
-        const newRooms = bookingsService.deleteBooking(id);
+        const newBooks = await bookingsService.deleteBooking(id);
 
-        res.send(newRooms)
+        res.send(newBooks)
 
     } catch (e){
         res.status(400).send((<Error>e).message)
     }
 });
 
-routerBooking.post("/", (req, res) => {
+routerBooking.post("/", async (req, res) => {
   try {
-    const veryfyRoomReq = verifyNewBooking(req.body);
+    const veryfyBookReq = verifyNewBooking(req.body);
 
-    const createNewRoom = bookingsService.addBooking(veryfyRoomReq);
+    const createNewBook = await bookingsService.addBooking(veryfyBookReq);
 
-    res.json(createNewRoom);
+    res.json(createNewBook);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
 });
 
-routerBooking.put("/", (req, res) => {
-  bookingsService.updateBooking(req.body)
+routerBooking.put("/", async (req, res) => {
+  await bookingsService.updateBooking(req.body)
+  res.send(200)
+  
+  
 });
 
 export default routerBooking;

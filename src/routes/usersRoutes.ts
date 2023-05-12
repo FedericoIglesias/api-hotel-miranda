@@ -6,20 +6,20 @@ import { verifyNewUser } from "../utils/usersUtils";
 
 const routerUser = express.Router();
 
-routerUser.get("/", (req, res) => {
-  res.send(usersService.getUsers());
+routerUser.get("/", async (req, res) => {
+  res.send(await usersService.getUsers());
 });
 
-routerUser.get("/:id", (req, res) => {
-  const User = usersService.getIdUser(+req.params.id);
+routerUser.get("/:id", async (req, res) => {
+  const User = await usersService.getIdUser(+req.params.id);
   return User !== undefined ? res.send(User) : res.send(404);
 });
 
-routerUser.delete("/", (req, res) => {
+routerUser.delete("/", async (req, res) => {
     try{
         const id = verifyIdDelete(req.body);
 
-        const newUsers = usersService.deleteUser(id);
+        const newUsers = await usersService.deleteUser(id);
 
         res.send(newUsers)
 
@@ -28,11 +28,11 @@ routerUser.delete("/", (req, res) => {
     }
 });
 
-routerUser.post("/", (req, res) => {
+routerUser.post("/", async (req, res) => {
   try {
     const veryfyUserReq = verifyNewUser(req.body);
 
-    const createNewUser = usersService.addUser(veryfyUserReq);
+    const createNewUser = await usersService.addUser(veryfyUserReq);
 
     res.json(createNewUser);
   } catch (e) {
@@ -40,8 +40,14 @@ routerUser.post("/", (req, res) => {
   }
 });
 
-routerUser.put("/", (req, res) => {
-  usersService.updateUser(req.body)
+routerUser.put("/", async (req, res) => {
+  try{
+    await usersService.updateUser(req.body)
+    res.send(200)
+  }catch(e){
+    res.status(400).send((<Error>e).message);
+  }
+
 });
 
 export default routerUser;

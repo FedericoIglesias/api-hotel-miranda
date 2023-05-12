@@ -6,20 +6,20 @@ import { verifyNewcontact } from "../utils/contactUtils";
 
 const routerContact = express.Router();
 
-routerContact.get("/", (req, res) => {
-  res.send(contactService.getContacts());
+routerContact.get("/", async (req, res) => {
+  res.send( await contactService.getContacts());
 });
 
-routerContact.get("/:id", (req, res) => {
-  const contact = contactService.getIdContact(+req.params.id);
+routerContact.get("/:id", async (req, res) => {
+  const contact = await contactService.getIdContact(+req.params.id);
   return contact !== undefined ? res.send(contact) : res.send(404);
 });
 
-routerContact.delete("/", (req, res) => {
+routerContact.delete("/", async (req, res) => {
     try{
         const id = verifyIdDelete(req.body);
 
-        const newContacts = contactService.deleteContacts(id);
+        const newContacts = await contactService.deleteContacts(id);
 
         res.send(newContacts)
 
@@ -28,11 +28,11 @@ routerContact.delete("/", (req, res) => {
     }
 });
 
-routerContact.post("/", (req, res) => {
+routerContact.post("/", async (req, res) => {
   try {
     const veryfycontactReq = verifyNewcontact(req.body);
 
-    const createNewContact = contactService.addContact(veryfycontactReq);
+    const createNewContact = await contactService.addContact(veryfycontactReq);
 
     res.json(createNewContact);
   } catch (e) {
@@ -40,8 +40,14 @@ routerContact.post("/", (req, res) => {
   }
 });
 
-routerContact.put("/", (req, res) => {
-  contactService.updateContact(req.body)
+routerContact.put("/", async (req, res) => {
+  try{
+
+    await contactService.updateContact(req.body)
+    res.send(200)
+  } catch (error){
+    throw error
+  }
 });
 
 export default routerContact;
