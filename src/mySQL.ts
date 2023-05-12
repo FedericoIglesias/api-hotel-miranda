@@ -14,7 +14,5 @@ export async function callDB<T extends RowDataPacket[] | OkPacket >(
 ): Promise<T> {
   const connection = await mysql.createConnection(configDB);
   const [resp]: any = await connection.execute( query, params );
-  console.log(resp);
-
   return resp;
 }

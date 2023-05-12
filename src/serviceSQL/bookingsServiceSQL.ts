@@ -9,7 +9,8 @@ export const getBookings = async (): Promise<BookingSQL[]> => {
 }
 
 export const getIdBooking = async (id: number) => {
-  return await callDB("SELECT * FROM bookings WHERE id=?", [id]);
+    const book = await callDB("SELECT * FROM bookings INNER JOIN rooms ON rooms.id=bookings.idRoom WHERE bookings.id =? ", [id]);
+    return book
 };
 
 export const addBooking = async (addNewBooking: AddNewBookingSQL) => {
@@ -31,12 +32,13 @@ export const deleteBooking = async (id: number) => {
 
 export const updateBooking = async (putBooking: any) => {
     await callDB(
-        "UPDATE bookings SET name=?, orderDate=?, checkIn=?, checkOut=?, status=?  WHERE id = ?", 
+        "UPDATE bookings SET name=?, orderDate=?, checkIn=?, checkOut=?, idRoom=?, status=?  WHERE id = ?", 
         [
             putBooking.name,
             putBooking.orderDate,
             putBooking.checkIn,
             putBooking.checkOut,
+            putBooking.idRoom,
             putBooking.status,
             putBooking.id,
         ])
