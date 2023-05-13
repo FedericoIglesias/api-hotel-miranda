@@ -3,6 +3,7 @@ import express from "express";
 import * as bookingsService from '../serviceSQL/bookingsServiceSQL'
 import { verifyNewBooking } from "../utils/bookingsUtils";
 import { verifyIdDelete } from "../utils/roomsUtils";
+import { AddNewBookingSQL } from "../types";
 
 
 const routerBooking = express.Router();
@@ -32,7 +33,7 @@ routerBooking.delete("/", async (req, res) => {
 
 routerBooking.post("/", async (req, res) => {
   try {
-    const veryfyBookReq = verifyNewBooking(req.body);
+    const veryfyBookReq = verifyNewBooking(req.body) as AddNewBookingSQL;
 
     const createNewBook = await bookingsService.addBooking(veryfyBookReq);
 

@@ -1,24 +1,28 @@
+import Joi from "joi";
 import { StatusBooking } from "../enum";
-import { parse } from "../functions";
 import { AddNewBooking, AddNewBookingSQL, Booking } from "../types";
+import { response } from "express";
 
+export const verifyNewBooking = (obj: AddNewBooking) => {
+  try {
+    validateBook.validate(obj);
+    return obj;
+  } catch (error) {
+    response.send(422).send(error);
+  }
+};
 
-export const parseStatus = (statusFromReq: any): StatusBooking =>{
-    if(!Object.values(StatusBooking).includes(statusFromReq)){
-        throw new Error ('status not be string')
-    }
-    return statusFromReq
-}
-
-
-export const verifyNewBooking = (obj: any): AddNewBooking =>{
-    const newBook = {
-        name: parse(obj.name,'name','string'),
-        orderDate: parse(obj.orderDate,'orderDate','number'),
-        checkIn: parse(obj.checkIn,'checkIn','number'),
-        checkOut: parse(obj.checkOut,'checkOut','number'),
-        idRoom: parse(obj.idRoom, 'idRoom', 'number'),
-        status:  parseStatus(obj.status)
-    }
-    return newBook
-} 
+const validateBook = Joi.object({
+  name: Joi.string().max(30).min(1).required(),
+  orderDate: Joi.date().timestamp("javascript").required(),
+  checkIn: Joi.date().timestamp("javascript").required(),
+  checkOut: Joi.date().timestamp("javascript").required(),
+  idRoom: Joi.number().min(1).required(),
+  status: Joi.string()
+    .valid(
+      StatusBooking.CheckIn,
+      StatusBooking.CheckOut,
+      StatusBooking.InProgress
+    )
+    .required(),
+});

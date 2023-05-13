@@ -1,0 +1,40 @@
+create table rooms(
+id int AI PK 
+photo varchar(30) 
+numberRoom int 
+roomType varchar(30) 
+amenities varchar(200) 
+price int 
+offerPercent int 
+status varchar(30)
+)
+
+create table bookings(
+id int AI PK 
+name varchar(30) 
+orderDate bigint 
+checkIn bigint 
+checkOut bigint 
+idRoom int 
+status varchar(30)
+)
+
+create table contacts(
+id int AI PK 
+name varchar(30) 
+email varchar(200) 
+phone varchar(30) 
+date bigint 
+subject varchar(30)
+)
+
+create table user(
+id int AI PK 
+name varchar(30) 
+email varchar(30) 
+startDate bigint 
+description varchar(200) 
+phone varchar(30) 
+status varchar(30) 
+password varchar(30)
+)
