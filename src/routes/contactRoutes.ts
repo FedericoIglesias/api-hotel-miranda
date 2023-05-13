@@ -3,6 +3,7 @@ import express from "express";
 import * as contactService from "../serviceSQL/contactServiceSQL";
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewcontact } from "../utils/contactUtils";
+import { AddNewBookingSQL } from "../types";
 
 const routerContact = express.Router();
 
@@ -30,7 +31,7 @@ routerContact.delete("/", async (req, res) => {
 
 routerContact.post("/", async (req, res) => {
   try {
-    const veryfycontactReq = verifyNewcontact(req.body);
+    const veryfycontactReq = await verifyNewcontact(req.body) as AddNewBookingSQL;
 
     const createNewContact = await contactService.addContact(veryfycontactReq);
 
@@ -42,7 +43,6 @@ routerContact.post("/", async (req, res) => {
 
 routerContact.put("/", async (req, res) => {
   try{
-
     await contactService.updateContact(req.body)
     res.send(200)
   } catch (error){
