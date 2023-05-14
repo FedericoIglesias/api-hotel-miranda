@@ -1,7 +1,7 @@
 import express from "express";
 // import * as roomsService from "../services/roomsService";
 import * as roomsService from "../serviceSQL/roomsServiceSQL"
-import { verifyIdDelete, verifyNewRoom } from "../utils/roomsUtils";
+import { validateRoom, verifyIdDelete, verifyNewRoom } from "../utils/roomsUtils";
 
 
 const routerRoom = express.Router();
@@ -29,11 +29,10 @@ routerRoom.delete("/", async (req, res) => {
     }
 });
 
-routerRoom.post("/", async (req, res) => {
+routerRoom.post("/",verifyNewRoom(validateRoom), async (req, res) => {
   try {
-    const veryfyRoomReq = verifyNewRoom(req.body);
 
-    const createNewRoom = await roomsService.addRoom(veryfyRoomReq);
+    const createNewRoom = await roomsService.addRoom(req.body);
 
     res.json(createNewRoom);
   } catch (e) {
