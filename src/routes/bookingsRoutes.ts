@@ -1,7 +1,7 @@
 import express from "express";
 // import * as bookingsService from '../servicesFS/bookingsService'
 import * as bookingsService from '../serviceSQL/bookingsServiceSQL'
-import { verifyNewBooking } from "../utils/bookingsUtils";
+import { validateBook, verifyNewBooking } from "../utils/bookingsUtils";
 import { verifyIdDelete } from "../utils/roomsUtils";
 import { AddNewBookingSQL } from "../types";
 
@@ -31,11 +31,9 @@ routerBooking.delete("/", async (req, res) => {
     }
 });
 
-routerBooking.post("/", async (req, res) => {
+routerBooking.post("/", verifyNewBooking(validateBook),async (req, res) => {
   try {
-    const veryfyBookReq = verifyNewBooking(req.body) as AddNewBookingSQL;
-
-    const createNewBook = await bookingsService.addBooking(veryfyBookReq);
+    const createNewBook = await bookingsService.addBooking(req.body);
 
     res.json(createNewBook);
   } catch (e) {

@@ -1,18 +1,7 @@
 import Joi from "joi";
 import { StatusBooking } from "../enum";
-import { AddNewBooking, AddNewBookingSQL, Booking } from "../types";
-import { response } from "express";
 
-export const verifyNewBooking = (obj: AddNewBooking) => {
-  try {
-    validateBook.validate(obj);
-    return obj;
-  } catch (error) {
-    response.send(422).send(error);
-  }
-};
-
-const validateBook = Joi.object({
+export const validateBook = Joi.object({
   name: Joi.string().max(30).min(1).required(),
   orderDate: Joi.date().timestamp("javascript").required(),
   checkIn: Joi.date().timestamp("javascript").required(),
@@ -26,3 +15,17 @@ const validateBook = Joi.object({
     )
     .required(),
 });
+
+
+export const verifyNewBooking = (schema:any) => {
+    const validate = (req: any, res: any) =>{
+      let {error} = schema.validate(req.body);
+      if(error){
+        res.json(error.details)
+      }else{
+        res.send(200)
+      }
+    }
+    return validate
+};
+
