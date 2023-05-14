@@ -2,7 +2,9 @@ import express from "express";
 // import * as usersService from '../servicesFS/usersService'
 import * as usersService from '../serviceSQL/userServiceSQL'
 import { verifyIdDelete } from "../utils/roomsUtils";
-import { verifyNewUser } from "../utils/usersUtils";
+import { validateUser, verifyNewUser } from "../utils/usersUtils";
+import { AddNewUser, AddNewUserSQL } from "../types";
+import { validateContact } from "../utils/contactUtils";
 
 const routerUser = express.Router();
 
@@ -28,9 +30,9 @@ routerUser.delete("/", async (req, res) => {
     }
 });
 
-routerUser.post("/", async (req, res) => {
+routerUser.post("/",verifyNewUser(validateUser),async (req, res) => {
   try {
-    const veryfyUserReq = verifyNewUser(req.body);
+    const veryfyUserReq = verifyNewUser(req.body) as AddNewUserSQL;
 
     const createNewUser = await usersService.addUser(veryfyUserReq);
 

@@ -2,8 +2,8 @@ import express from "express";
 // import * as contactService from "../servicesFS/contactService";
 import * as contactService from "../serviceSQL/contactServiceSQL";
 import { verifyIdDelete } from "../utils/roomsUtils";
-import { verifyNewcontact } from "../utils/contactUtils";
-import { AddNewBookingSQL } from "../types";
+import { validateContact, verifyNewcontact } from "../utils/contactUtils";
+import { AddNewContactsSQL } from "../types";
 
 const routerContact = express.Router();
 
@@ -29,11 +29,9 @@ routerContact.delete("/", async (req, res) => {
     }
 });
 
-routerContact.post("/", async (req, res) => {
+routerContact.post("/",verifyNewcontact(validateContact), async (req, res) => {
   try {
-    const veryfycontactReq = await verifyNewcontact(req.body) as AddNewBookingSQL;
-
-    const createNewContact = await contactService.addContact(veryfycontactReq);
+    const createNewContact = await contactService.addContact(req.body);
 
     res.json(createNewContact);
   } catch (e) {
