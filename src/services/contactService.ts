@@ -1,29 +1,48 @@
 import { write } from "../functions";
 import { AddNewContact, Contact } from "../types";
-import contactData from "../data/contacts.json"
-
-let contacts: Contact[] = contactData as Contact[] ;
-
-export const getContacts = (): Contact[] => contacts;
+import { connectMongoDB } from "../mongo";
+import { ContactModel } from "../mongoose/contactModel";
+import { response } from "express";
 
 
-export const getIdContact = (id: number): Contact | undefined => {
-  return contacts.find((contacts) => contacts.id === id);
+export const getContacts = () => {
+  connectMongoDB()
+  ContactModel.find({}).then(c => {
+    response.json(c)
+  })
 };
 
 
-export const addContact = (addNewContact: AddNewContact ): Contact => {
-    const newContact = {
-        id: Math.max(...contacts.map((contacts) => contacts.id)) + 1,
-        ...addNewContact
-    }
-    contacts.push(newContact)
-    write('src/data/contacts.json', contacts)
-    return newContact
-  }
+export const getIdContact = (id: string)=> {
+  connectMongoDB()
+  ContactModel.findById(id).then(c => {
+    response.json(c)
+  })};
+
+
+export const addContact = (addNewContact: AddNewContact ) => {
+    connectMongoDB()
+  const newContact = new ContactModel({
+      name: addNewContact.name ,
+      email: addNewContact.email ,
+      phone: addNewContact.phone ,
+      date: addNewContact.date ,
+      subject: addNewContact.subject ,
+    })
+    newContact.save().then(c => {
+      response.json(c)
+    }).catch(error => 
+      response.json(error));
+  };
   
-  export const deleteContacts = (id: number): Contact[] =>{
-    contacts = contacts.filter(c => c.id !== id)
-    write('src/data/contacts.json', contacts)
-  return contacts
+  export const deleteContacts = (id: string) =>{
+    connectMongoDB()
+    ContactModel.findByIdAndDelete(id).then(c => 
+      response.send(200)).catch(error => response.json(error))
+}
+
+export const putContacts = (id: string , putKey: Partial<Contact> ) => {
+  connectMongoDB()
+  ContactModel.findByIdAndUpdate(id , putKey).then(c => 
+    response.json(c)).catch(error => response.json(error))
 }

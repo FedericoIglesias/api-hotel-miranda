@@ -1,27 +1,47 @@
-import bookingsData from "../data/bookings.json";
+import { response } from "express";
 import { write } from "../functions";
+import { connectMongoDB } from "../mongo";
+import { BookingModel } from "../mongoose/bookingModel";
 import { AddNewBooking, Booking } from "../types";
 
-let bookings = bookingsData;
-
-export const getBookings = () => bookings;
-
-export const getIdBooking = (id: number): Booking | undefined => {
-  return bookings.find((bookings) => bookings.id === id);
+export const getBookings = () => {
+  connectMongoDB();
+  BookingModel.find({})
+    .then((b) => response.json(b))
+    .catch((error) => response.json(error));
 };
 
-export const addBooking = (addNewBooking: AddNewBooking): Booking => {
-  const newBooking = {
-    id: Math.max(...bookings.map((bookings) => bookings.id)) + 1,
-    ...addNewBooking,
-  };
-  bookings.push(newBooking);
-  write("src/data/bookings.json", bookings);
-  return newBooking;
+export const getIdBooking = (id: string) => {
+  connectMongoDB()
+  BookingModel.findById(id)
+  .then(b => response.json(b))
+  .catch(error => response.json(error))
 };
 
-export const deleteBooking = (id: number): Booking[] => {
-  bookings = bookings.filter((r) => r.id !== id);
-  write("src/data/bookings.json", bookings);
-  return bookings;
+export const addBooking = (addNewBooking: AddNewBooking) => {
+  connectMongoDB()
+  const newBook = new BookingModel({
+    name: addNewBooking.name ,
+    orderDate: addNewBooking.orderDate ,
+    checkIn: addNewBooking.checkIn ,
+    checkOut: addNewBooking.checkOut ,
+    status: addNewBooking.status ,
+  })
+  newBook.save()
+  .then(b => response.json(b))
+  .catch(error => response.json(error))
 };
+
+export const deleteBooking = (id: string) => {
+  connectMongoDB()
+  BookingModel.findByIdAndDelete(id)
+  .then(() => response.json(200))
+  .catch(error => response.json(error))
+};
+
+export const putBooking = (id: string, putKey: Partial<Booking>) => {
+  connectMongoDB()
+  BookingModel.findByIdAndUpdate(id, putKey)
+  .then(b => response.json(b))
+  .catch(error => response.json(error))
+}

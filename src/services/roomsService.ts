@@ -1,31 +1,45 @@
+import { response } from "express";
 import roomsData from "../data/rooms.json";
 import { write } from "../functions";
+import { RoomModel } from "../mongoose/roomModel";
 import { Room, AddNewRoom } from "../types";
+import { connectMongoDB } from "../mongo";
 
-
-
-let rooms: Room[] = roomsData as Room[] ;
-
-export const getRooms = (): Room[] => rooms;
-
-
-export const getIdRoom = (id: number): Room | undefined => {
-  return rooms.find((rooms) => rooms.id === id);
+export const getRooms = () => {
+  connectMongoDB();
+  RoomModel.find({}).then((r) => {
+    response.json(r);
+  });
 };
 
+export const getIdRoom = (numberRoom: number) => {
+  connectMongoDB()
+  RoomModel.find({ numberRoom }).then((r) => {
+    response.json(r);
+  });
+};
 
-export const addRoom = (addNewRoom: AddNewRoom ): Room => {
-    const newRoom = {
-        id: Math.max(...rooms.map((rooms) => rooms.id)) + 1,
-        ...addNewRoom
-    }
-    rooms.push(newRoom)
-    write('src/data/rooms.json', rooms)
-    return newRoom
-  }
-  
-  export const deleteRoom = (id: number): Room[] =>{
-    rooms = rooms.filter(r => r.id !== id)
-    write('src/data/rooms.json', rooms)
-  return rooms
+export const addRoom = (addNewRoom: AddNewRoom) => {
+  connectMongoDB()
+  const newRoom = new RoomModel({
+    photo: addNewRoom.photo ,
+    numberRoom: addNewRoom.numberRoom ,
+    roomType: addNewRoom.roomType ,
+    amenities: addNewRoom.amenities ,
+    price: addNewRoom.price ,
+    offerPercent: addNewRoom.offerPercent ,
+    status: addNewRoom.status ,
+  });
+  newRoom.save().then(saveRoom => {
+    response.json(saveRoom)
+  })
+};
+
+  export const deleteRoom = (numberRoom: number) =>{
+    connectMongoDB()
+    RoomModel.deleteOne({numberRoom}).then(() => {
+      response.send(200)
+    }).catch(error => response.json(error));
 }
+
+
