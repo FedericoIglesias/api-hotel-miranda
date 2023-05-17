@@ -6,7 +6,7 @@ const bookingSchema = new Schema({
     orderDate: Date,
     checkIn: Date,
     checkOut: Date,
-    status: StatusBook
+    status: {type: StatusBook}
   })
 
 

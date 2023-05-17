@@ -5,44 +5,60 @@ import { ContactModel } from "../mongoose/contactModel";
 import { response } from "express";
 
 
-export const getContacts = () => {
-  connectMongoDB()
-  ContactModel.find({}).then(c => {
-    response.json(c)
-  })
+export const getContacts = async (): Promise<any> => {
+  try{
+    await connectMongoDB()
+    const contacts = await ContactModel.find({})
+  } catch(e){
+    throw new Error((<Error>e).message)
+  }
 };
 
 
-export const getIdContact = (id: string)=> {
-  connectMongoDB()
-  ContactModel.findById(id).then(c => {
-    response.json(c)
-  })};
+export const getIdContact = async (id: string)=> {
+  try{
+    await connectMongoDB()
+    const contact = await ContactModel.findById(id)
+  }catch(e){
+    throw new Error((<Error>e).message)
+  }
+  };
 
 
-export const addContact = (addNewContact: AddNewContact ) => {
-    connectMongoDB()
-  const newContact = new ContactModel({
+export const addContact = async (addNewContact: AddNewContact ) => {
+  try{
+    await connectMongoDB()
+    const newContact = new ContactModel({
       name: addNewContact.name ,
       email: addNewContact.email ,
       phone: addNewContact.phone ,
       date: addNewContact.date ,
       subject: addNewContact.subject ,
     })
-    newContact.save().then(c => {
-      response.json(c)
-    }).catch(error => 
-      response.json(error));
-  };
-  
-  export const deleteContacts = (id: string) =>{
-    connectMongoDB()
-    ContactModel.findByIdAndDelete(id).then(c => 
-      response.send(200)).catch(error => response.json(error))
+    const contact = await newContact.save()
+    return contact
+    }catch(e){
+      throw new Error((<Error>e).message)
+    }
+    };
+    
+  export const deleteContacts = async (id: string) =>{
+    try{
+      await connectMongoDB()
+      await ContactModel.findByIdAndDelete(id)
+      return response.send(200)
+      }catch(e){
+        throw new Error((<Error>e).message)
+      }
+        
 }
 
-export const putContacts = (id: string , putKey: Partial<Contact> ) => {
-  connectMongoDB()
-  ContactModel.findByIdAndUpdate(id , putKey).then(c => 
-    response.json(c)).catch(error => response.json(error))
+export const putContacts = async (id: string , putKey: Partial<Contact> ) => {
+  try{
+    await connectMongoDB()
+    const contact = await ContactModel.findByIdAndUpdate(id , putKey)
+    return contact
+    }catch(e){
+      throw new Error((<Error>e).message)
+    }
 }

@@ -71,7 +71,7 @@ export interface Contact {
   name: string;
   email: string;
   phone: number;
-  date: string;
+  date: Date;
   subject: string;
 }
 export interface ContactSchema extends Mongoose{

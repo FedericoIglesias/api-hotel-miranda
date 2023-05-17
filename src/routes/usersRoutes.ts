@@ -10,7 +10,7 @@ routerUser.get("/", (req, res) => {
 });
 
 routerUser.get("/:id", (req, res) => {
-  const User = usersService.getIdUser(+req.params.id);
+  const User = usersService.getIdUser(req.params.id);
   return User !== undefined ? res.send(User) : res.send(404);
 });
 

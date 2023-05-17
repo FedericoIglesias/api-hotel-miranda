@@ -11,7 +11,7 @@ routerBooking.get("/", (req, res) => {
 });
 
 routerBooking.get("/:id", (req, res) => {
-  const room = bookingsService.getIdBooking(+req.params.id);
+  const room = bookingsService.getIdBooking(req.params.id);
   return room !== undefined ? res.send(room) : res.send(404);
 });
 

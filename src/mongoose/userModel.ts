@@ -8,7 +8,7 @@ const userSchema = new Schema ({
     startDate: Date,
     description: String,
     phone: Number,
-    status: StatusUser,
+    status: {type: StatusUser},
     password: String
   })
 

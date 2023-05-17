@@ -10,7 +10,7 @@ routerContact.get("/", (req, res) => {
 });
 
 routerContact.get("/:id", (req, res) => {
-  const contact = contactService.getIdContact(+req.params.id);
+  const contact = contactService.getIdContact(req.params.id);
   return contact !== undefined ? res.send(contact) : res.send(404);
 });
 

@@ -53,7 +53,7 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
 
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {
-    foto: parseFoto(obj.foto),
+    photo: parseFoto(obj.foto),
     numberRoom: parseNumberRoom(obj.numberRoom),
     roomType: parseRoomType(obj.roomType),
     amenities: parseAmenities(obj.amenities),
@@ -66,15 +66,14 @@ export const verifyNewRoom = (obj: any): AddNewRoom => {
 };
 
 
-const parseId = (idFromReq: any):number => {
-  if(typeof idFromReq !== 'number'){
-    throw new Error ('Id should be number ')
+const parseId = (idFromReq: any): string => {
+  if(typeof idFromReq !== 'string'){
+    throw new Error ('Id should be string ')
   }
-
   return idFromReq
 }
 
-export const verifyIdDelete = (obj:any): number => {
+export const verifyIdDelete = (obj:any): string => {
   const idDelete = parseId(obj.id)
   
   return idDelete

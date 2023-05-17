@@ -5,11 +5,11 @@ import { StatusRoom, TypeRoom } from '../enum';
 const roomSchema = new Schema({
     photo: String,
     numberRoom: String,
-    roomType: TypeRoom,
+    roomType: { type: TypeRoom },
     amenities: String,
     price: Number,
     offerPercent: Number,
-    status: StatusRoom
+    status: {type:StatusRoom}
   });
 
   export const RoomModel = model('Room', roomSchema)

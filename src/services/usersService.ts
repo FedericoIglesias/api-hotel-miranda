@@ -43,7 +43,7 @@ export const addUser = async (addNewUser: AddNewUser) => {
   }
 };
 
-export const deleteUser = async (id: number) => {
+export const deleteUser = async (id: string) => {
   try{
     await connectMongoDB()
     await UserModel.findByIdAndDelete(id)
