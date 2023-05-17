@@ -5,7 +5,7 @@ import { StatusUser } from "../enum";
 
  function createRandomUser(): AddNewUser {
   return {
-    name: faker.name.fullName(),
+    name: faker.person.fullName(),
     email: faker.internet.email(),
     startDate: new Date(faker.date.past()),
     description: faker.lorem.words(10),

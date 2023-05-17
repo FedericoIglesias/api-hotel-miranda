@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "tsc": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "generateDB": "ts-node src/seed/seed.ts"
   },
   "author": "",
   "license": "ISC",

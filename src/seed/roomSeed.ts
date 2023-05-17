@@ -7,11 +7,11 @@ import * as roomService from '../services/roomsService'
 const createRandomRoom = (): AddNewRoom => {
    return {
     photo: faker.animal.bear(),
-    numberRoom: faker.datatype.number({max: 20}),
+    numberRoom: faker.number.int({max: 20}),
     roomType: faker.helpers.arrayElement([TypeRoom.Deluxe, TypeRoom.DoubleBed, TypeRoom.SingleBed]),
     amenities: faker.helpers.arrayElements(['Wifi', 'TV', 'Air conditioner', 'Breakfast','Cleaning', 'Grocery']),
-    price: faker.datatype.number({max: 1000 , min: 500}),
-    offerPercent: faker.datatype.number({max: 50}),
+    price: faker.number.int({max: 1000 , min: 500}),
+    offerPercent: faker.number.int({max: 50}),
     status: faker.helpers.arrayElement([StatusRoom.Available, StatusRoom.Booked])
 }}
 

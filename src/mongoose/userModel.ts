@@ -7,7 +7,7 @@ const userSchema = new Schema ({
     email: String,
     startDate: Date,
     description: String,
-    phone: Number,
+    phone: String,
     status: {type: StatusUser},
     password: String
   })

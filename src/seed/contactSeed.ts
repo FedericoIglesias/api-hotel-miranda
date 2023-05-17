@@ -7,11 +7,11 @@ import { AddNewContact } from "../types";
 function createRandomContact(): AddNewContact {
 
     return {
-      name: faker.name.fullName(),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       phone: faker.phone.number("###-###-###"),
       date: new Date(faker.date.past()),
-      subject: faker.random.word()
+      subject: faker.lorem.word()
     };
   }
 

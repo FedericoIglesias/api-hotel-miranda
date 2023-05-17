@@ -6,7 +6,7 @@ const roomSchema = new Schema({
     photo: String,
     numberRoom: String,
     roomType: { type: TypeRoom },
-    amenities: String,
+    amenities: [String],
     price: Number,
     offerPercent: Number,
     status: {type:StatusRoom}
