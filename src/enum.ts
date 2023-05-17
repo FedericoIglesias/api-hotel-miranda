@@ -12,7 +12,7 @@ export enum TypeRoom  {
 export enum StatusBook {
     InProgress = 'In Progress',
     CheckIn = 'Check In',
-    checkOut = 'Check Out'
+    CheckOut = 'Check Out'
 }
 
 export enum StatusUser {

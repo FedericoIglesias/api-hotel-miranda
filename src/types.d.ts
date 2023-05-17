@@ -1,12 +1,12 @@
 import { Mongoose } from "./mongoose/roomModel";
-import { StatusRoom, TypeRoom } from "./enum";
+import { StatusBook, StatusRoom, StatusUser, TypeRoom } from "./enum";
 
 export interface Room {
   id: number;
   photo: any;
-  numberRoom: string;
+  numberRoom: number;
   roomType: TypeRoom;
-  amenities: string;
+  amenities: string[];
   price: number;
   offerPercent: number;
   status: StatusRoom;
@@ -14,9 +14,9 @@ export interface Room {
 export interface RoomSchema extends Mongoose {
   id: number;
   photo: any;
-  numberRoom: string;
+  numberRoom: number;
   roomType: TypeRoom;
-  amenities: string;
+  amenities: string[];
   price: number;
   offerPercent: number;
   status: StatusRoom;
@@ -27,18 +27,20 @@ export type AddNewRoom = Omit<Room, "id">;
 export interface Booking {
   id: number;
   name: string;
-  orderDate: string;
-  checkIn: string;
-  checkOut: string;
-  status: boolean;
+  orderDate: Date;
+  checkIn: Date;
+  checkOut: Date;
+  idRoom: number;
+  status: StatusBook;
 }
 export interface BookingSchema extends Mongoose{
   id: number;
   name: string;
-  orderDate: string;
-  checkIn: string;
-  checkOut: string;
-  status: boolean;
+  orderDate: Date;
+  checkIn: Date;
+  checkOut: Date;
+  idRoom: number;
+  status: StatusBook;
 }
 
 export type AddNewBooking = Omit<Booking, "id">;
@@ -47,20 +49,20 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  startDate: string;
+  startDate: Date;
   description: string;
   phone: string;
-  status: boolean;
+  status: StatusUser;
   password: string;
 }
 export interface UserSchema extends Mongoose{
   id: number;
   name: string;
   email: string;
-  startDate: string;
+  startDate: Date;
   description: string;
   phone: string;
-  status: boolean;
+  status: StatusUser;
   password: string;
 }
 
@@ -70,7 +72,7 @@ export interface Contact {
   id: number;
   name: string;
   email: string;
-  phone: number;
+  phone: string;
   date: Date;
   subject: string;
 }
@@ -78,8 +80,8 @@ export interface ContactSchema extends Mongoose{
   id: number;
   name: string;
   email: string;
-  phone: number;
-  date: string;
+  phone: string;
+  date: Date;
   subject: string;
 }
 
