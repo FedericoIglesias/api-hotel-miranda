@@ -1,7 +1,7 @@
 import express from "express";
 import * as contactService from "../services/contactService";
-import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewcontact } from "../utils/contactUtils";
+import { verifyIdDelete } from "../functions";
 
 const routerContact = express.Router();
 

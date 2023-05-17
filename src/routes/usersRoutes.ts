@@ -1,7 +1,7 @@
 import express from "express";
 import * as usersService from '../services/usersService'
-import { verifyIdDelete } from "../utils/roomsUtils";
 import { verifyNewUser } from "../utils/usersUtils";
+import { verifyIdDelete } from "../functions";
 
 const routerUser = express.Router();
 

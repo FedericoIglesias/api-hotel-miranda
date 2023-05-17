@@ -1,7 +1,8 @@
 import express from "express";
 import * as bookingsService from '../services/bookingsService'
 import { verifyNewBooking } from "../utils/bookingsUtils";
-import { verifyIdDelete } from "../utils/roomsUtils";
+import { verifyIdDelete } from "../functions";
+
 
 
 const routerBooking = express.Router();

@@ -1,6 +1,7 @@
 import express from "express";
 import * as roomsService from "../services/roomsService";
-import { verifyIdDelete, verifyNewRoom } from "../utils/roomsUtils";
+import { verifyNewRoom } from "../utils/roomsUtils";
+import { verifyIdDelete } from "../functions";
 
 const routerRoom = express.Router();
 

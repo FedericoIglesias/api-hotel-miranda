@@ -1,46 +1,12 @@
 import { StatusRoom, TypeRoom } from "../enum";
+import { parse } from "../functions";
 import { AddNewRoom } from "../types";
-
-const parseFoto = (fotoFromReq: any): string => {
-  if (typeof fotoFromReq !== "object") {
-    throw new Error('Photo not be a object')
-  }
-  return fotoFromReq;
-};
-
-const parseNumberRoom = (numberRoomFromReq: any): string => {
-  if (typeof numberRoomFromReq !== "string") {
-    throw new Error("NumberRoom no be string");
-  }
-  return numberRoomFromReq;
-};
 
 const parseRoomType = (roomTypeFromReq: any): TypeRoom => {
   if (!Object.values(TypeRoom).includes(roomTypeFromReq)) {
     throw new Error(`RoomType not be TypeRoom`);
   }
   return roomTypeFromReq;
-};
-
-const parseAmenities = (amenitiesFromReq: string): string => {
-  if (typeof amenitiesFromReq !== "string") {
-    throw new Error("Amenities not be string");
-  }
-  return amenitiesFromReq;
-};
-
-const parsePrice = (priceFromReq: any): number => {
-  if (typeof priceFromReq !== "number") {
-    throw new Error("price not be number");
-  }
-  return priceFromReq;
-};
-
-const parseOfferPercent = (OfferPercentFromReq: any): number => {
-  if (typeof OfferPercentFromReq !== "number") {
-    throw new Error("OfferPercenter not be number");
-  }
-  return OfferPercentFromReq;
 };
 
 const parseStatus = (statusFromReq: any): StatusRoom => {
@@ -53,12 +19,12 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
 
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {
-    photo: parseFoto(obj.foto),
-    numberRoom: parseNumberRoom(obj.numberRoom),
+    photo: parse(obj.foto, 'photo', 'string'),
+    numberRoom: parse(obj.numberRoom, 'numberRoom', 'number'),
     roomType: parseRoomType(obj.roomType),
-    amenities: parseAmenities(obj.amenities),
-    price: parsePrice(obj.price),
-    offerPercent: parseOfferPercent(obj.offerPercent),
+    amenities: parse(obj.amenities, 'amenities', 'object'),
+    price: parse(obj.price, 'price', 'number'),
+    offerPercent: parse(obj.offerPercent, 'offerPercent', 'number'),
     status: parseStatus(obj.status),
   };
 
@@ -66,15 +32,3 @@ export const verifyNewRoom = (obj: any): AddNewRoom => {
 };
 
 
-const parseId = (idFromReq: any): string => {
-  if(typeof idFromReq !== 'string'){
-    throw new Error ('Id should be string ')
-  }
-  return idFromReq
-}
-
-export const verifyIdDelete = (obj:any): string => {
-  const idDelete = parseId(obj.id)
-  
-  return idDelete
-}

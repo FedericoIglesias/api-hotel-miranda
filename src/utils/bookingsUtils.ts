@@ -1,45 +1,22 @@
-import { AddNewBooking, Booking } from "../types";
+import { StatusBook } from "../enum";
+import { parse } from "../functions";
+import { AddNewBooking } from "../types";
 
-
-export const parseName = (nameFromReq: any): string =>{
-    if(typeof nameFromReq !== 'string'){
-        throw new Error ('Name not be string')
+const parseStatus = (statusFromReq: any): StatusBook => {
+    if (!Object.values(StatusBook).includes(statusFromReq)) {
+      throw new Error("Status not be StatusBook");
     }
-    return nameFromReq
-}
-const parseOrderDate = (ordeDateFromReq: any): string =>{
-    if(typeof ordeDateFromReq !== 'string'){
-        throw new Error ('ordeDate not be string')
-    }
-    return ordeDateFromReq
-}
-const parseCheckIn = (checkInFromReq: any): string =>{
-    if(typeof checkInFromReq !== 'string'){
-        throw new Error ('checkIn not be string')
-    }
-    return checkInFromReq
-}
-const parseCheckOut = (checkOutFromReq: any): string =>{
-    if(typeof checkOutFromReq !== 'string'){
-        throw new Error ('checkOut not be string')
-    }
-    return checkOutFromReq
-}
-
-export const parseStatus = (statusFromReq: any): boolean =>{
-    if(typeof statusFromReq !== 'boolean'){
-        throw new Error ('status not be boolean')
-    }
-    return statusFromReq
-}
-
+    return statusFromReq;
+  };
+  
 
 export const verifyNewBooking = (obj: any): AddNewBooking =>{
     const newBook = {
-        name: parseName(obj.name),
-        orderDate: parseOrderDate(obj.orderDate),
-        checkIn: parseCheckIn(obj.checkIn),
-        checkOut: parseCheckOut(obj.checkOut),
+        name: parse(obj.name, 'name', 'string'),
+        orderDate: parse(obj.orderDate, 'orderDate', 'date'),
+        checkIn: parse(obj.checkIn, 'checkIn', 'date'),
+        checkOut: parse(obj.checkOut, 'checkOut', 'date'),
+        idRoom: parse(obj.idRoom,'idRoom', 'number'),
         status:  parseStatus(obj.status)
     }
     return newBook
