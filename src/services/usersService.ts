@@ -1,27 +1,54 @@
 import { AddNewUser, User } from "../types";
-import usersData from "../data/users.json";
-import { write } from "../functions";
+import { connectMongoDB } from "../mongo";
+import { UserModel } from "../mongoose/userModel";
+import { response } from "express";
 
-let users: User[] = usersData as User[];
-
-export const getUsers = (): User[] => users;
-
-export const getIdUser = (id: number): User | undefined => {
-  return users.find((users) => users.id === id);
+export const getUsers = async () => {
+  try {
+    await connectMongoDB();
+    const users = await UserModel.find({});
+    return users;
+  } catch (e) {
+    console.log(e);
+    return e;
+  }
 };
 
-export const addUser = (addNewUser: AddNewUser): User => {
-  const newUser = {
-    id: Math.max(...users.map((Users) => Users.id)) + 1,
-    ...addNewUser,
-  };
-  users.push(newUser);
-  write("src/data/Users.json", users);
-  return newUser;
+export const getIdUser = async (id: string) => {
+  try{
+    await connectMongoDB();  
+    const user = UserModel.findById(id);
+    return user;
+  } catch (e){
+    console.log(e);
+  }
 };
 
-export const deleteUser = (id: number): User[] => {
-  users = users.filter((r) => r.id !== id);
-  write("src/data/users.json", users);
-  return users;
+export const addUser = async (addNewUser: AddNewUser) => {
+  try {
+    await connectMongoDB();
+    const newUser = new UserModel({
+      name: addNewUser.name,
+      email: addNewUser.email,
+      startDate: addNewUser.startDate,
+      description: addNewUser.description,
+      phone: addNewUser.phone,
+      status: addNewUser.status,
+      password: addNewUser.password,
+    });
+    await newUser.save();
+    return newUser;
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+export const deleteUser = async (id: number) => {
+  try{
+    await connectMongoDB()
+    await UserModel.findByIdAndDelete(id)
+  } catch (e){
+    console.log(e);
+    
+  }
 };

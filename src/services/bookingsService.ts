@@ -1,5 +1,4 @@
 import { response } from "express";
-import { write } from "../functions";
 import { connectMongoDB } from "../mongo";
 import { BookingModel } from "../mongoose/bookingModel";
 import { AddNewBooking, Booking } from "../types";
