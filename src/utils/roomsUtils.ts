@@ -19,7 +19,7 @@ const parseStatus = (statusFromReq: any): StatusRoom => {
 
 export const verifyNewRoom = (obj: any): AddNewRoom => {
   const createRoom: AddNewRoom = {
-    photo: parse(obj.foto, 'photo', 'string'),
+    photo: parse(obj.photo, 'photo', 'string'),
     numberRoom: parse(obj.numberRoom, 'numberRoom', 'number'),
     roomType: parseRoomType(obj.roomType),
     amenities: parse(obj.amenities, 'amenities', 'object'),

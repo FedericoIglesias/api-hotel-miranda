@@ -7,7 +7,8 @@ const connectionString = 'mongodb+srv://fede:fede@cluster0.evhsumh.mongodb.net/?
 export const connectMongoDB = () => { mongoose.connect(connectionString, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useFindAndModify: false 
 })
   .then(() => {
     console.log('Database connected');

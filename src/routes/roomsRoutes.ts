@@ -5,20 +5,20 @@ import { verifyIdDelete } from "../functions";
 
 const routerRoom = express.Router();
 
-routerRoom.get("/", (req, res) => {
-  res.send(roomsService.getRooms());
+routerRoom.get("/", async (req, res) => {
+  res.send(await roomsService.getRooms());
 });
 
-routerRoom.get("/:id", (req, res) => {
-  const room = roomsService.getIdRoom(+req.params.id);
+routerRoom.get("/:id", async (req, res) => {
+  const room = await roomsService.getIdRoom(req.params.id);
   return room !== undefined ? res.send(room) : res.send(404);
 });
 
-routerRoom.delete("/", (req, res) => {
+routerRoom.delete("/", async (req, res) => {
     try{
         const id = verifyIdDelete(req.body);
 
-        const newRooms = roomsService.deleteRoom(id);
+        const newRooms =  await roomsService.deleteRoom(id);
 
         res.send(newRooms)
 
@@ -27,11 +27,11 @@ routerRoom.delete("/", (req, res) => {
     }
 });
 
-routerRoom.post("/", (req, res) => {
+routerRoom.post("/", async (req, res) => {
   try {
     const veryfyRoomReq = verifyNewRoom(req.body);
 
-    const createNewRoom = roomsService.addRoom(veryfyRoomReq);
+    const createNewRoom = await roomsService.addRoom(veryfyRoomReq);
 
     res.json(createNewRoom);
   } catch (e) {
@@ -39,6 +39,13 @@ routerRoom.post("/", (req, res) => {
   }
 });
 
-routerRoom.put("/", (req, res) => {});
+routerRoom.put("/", async (req, res) => {
+  try{
+    const room = await roomsService.putRoom(req.body.id, req.body.obj)
+    res.json(room)
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
+  }
+});
 
 export default routerRoom;
