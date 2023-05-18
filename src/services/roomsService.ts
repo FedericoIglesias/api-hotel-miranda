@@ -17,7 +17,7 @@ export const getIdRoom = async (id: string) => {
   try {
     await connectMongoDB();
     const room = await RoomModel.findById(id);
-    return room;
+    return room !== null? room : 'Id no found';
   } catch (e) {
     throw new Error((<Error>e).message);
   }

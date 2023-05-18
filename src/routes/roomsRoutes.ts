@@ -11,7 +11,7 @@ routerRoom.get("/", async (req, res) => {
 
 routerRoom.get("/:id", async (req, res) => {
   try{
-    const id = verifyId(req.params.id.toString())
+    const id = verifyId(req.params.id)
     const room = await roomsService.getIdRoom(id);
     return room !== undefined ? res.send(room) : res.send(404);
   }catch(e){
@@ -21,7 +21,7 @@ routerRoom.get("/:id", async (req, res) => {
 
 routerRoom.delete("/", async (req, res) => {
     try{
-        const id = verifyId(req.body);
+        const id = verifyId(req.body.id);
 
         const newRooms =  await roomsService.deleteRoom(id);
 
