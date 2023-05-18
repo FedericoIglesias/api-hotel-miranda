@@ -5,7 +5,7 @@ import { StatusUser } from "../enum"
 const userSchema = new Schema ({
     name: String,
     email: String,
-    startDate: Date,
+    startDate: Number,
     description: String,
     phone: String,
     status: {type: StatusUser},

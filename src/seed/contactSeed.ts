@@ -10,7 +10,7 @@ function createRandomContact(): AddNewContact {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       phone: faker.phone.number("###-###-###"),
-      date: new Date(faker.date.past()),
+      date: new Date(faker.date.past()).getTime(),
       subject: faker.lorem.word()
     };
   }

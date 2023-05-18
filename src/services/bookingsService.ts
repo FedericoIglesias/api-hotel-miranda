@@ -13,11 +13,11 @@ export const getBookings = async (): Promise<Booking[]> => {
   }
 };
 
-export const getIdBooking = async (id: string): Promise<Booking> => {
+export const getIdBooking = async (id: string): Promise<Booking | string> => {
   try {
     await connectMongoDB();
-    const book = await BookingModel.findById(id);
-    return book;
+    const book = await BookingModel.findById(id);    
+    return book !== null ? book : 'no found id'
   } catch (e) {
     throw new Error((<Error>e).message);
   }
@@ -31,12 +31,14 @@ export const addBooking = async (addNewBooking: AddNewBooking): Promise<any> => 
       orderDate: addNewBooking.orderDate,
       checkIn: addNewBooking.checkIn,
       checkOut: addNewBooking.checkOut,
+      idRoom: addNewBooking.idRoom,
       status: addNewBooking.status,
     });
     const book = await newBook.save();
     return book;
   } catch (e) {
-    throw new Error((<Error>e).message);
+    console.log(e);
+    
   }
 };
 

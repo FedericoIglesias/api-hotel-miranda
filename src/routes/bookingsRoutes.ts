@@ -1,46 +1,58 @@
 import express from "express";
 import * as bookingsService from '../services/bookingsService'
 import { verifyNewBooking } from "../utils/bookingsUtils";
-import { verifyIdDelete } from "../functions";
+import { verifyId } from "../functions";
 
 
 
 const routerBooking = express.Router();
 
-routerBooking.get("/", (req, res) => {
-  res.send(bookingsService.getBookings());
+routerBooking.get("/", async (req, res) => {
+  res.send(await bookingsService.getBookings());
 });
 
-routerBooking.get("/:id", (req, res) => {
-  const room = bookingsService.getIdBooking(req.params.id);
-  return room !== undefined ? res.send(room) : res.send(404);
+routerBooking.get("/:id", async (req, res) => {
+  try{
+    const  id = verifyId(req.params.id)
+    const booking = await bookingsService.getIdBooking(id);
+    return booking !== undefined ? res.send(booking) : res.send(404);
+  }catch(e){
+    res.status(400).send((<Error>e).message)
+  }
 });
 
-routerBooking.delete("/", (req, res) => {
+routerBooking.delete("/", async (req, res) => {
     try{
-        const id = verifyIdDelete(req.body);
+        const id = verifyId(req.body.id);
 
-        const newRooms = bookingsService.deleteBooking(id);
+        const booking = await bookingsService.deleteBooking(id);
 
-        res.send(newRooms)
+        res.send(booking)
 
     } catch (e){
         res.status(400).send((<Error>e).message)
     }
 });
 
-routerBooking.post("/", (req, res) => {
+routerBooking.post("/", async (req, res) => {
   try {
-    const veryfyRoomReq = verifyNewBooking(req.body);
+    const veryfyBookReq = verifyNewBooking(req.body);
 
-    const createNewRoom = bookingsService.addBooking(veryfyRoomReq);
+    const createNewBook = await bookingsService.addBooking(veryfyBookReq);
 
-    res.json(createNewRoom);
+    res.json(createNewBook);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
 });
 
-routerBooking.put("/", (req, res) => {});
+routerBooking.put("/", async (req, res) => {
+  try{
+    const book = await bookingsService.putBooking(req.body.id, req.body.obj)
+    res.json(book)
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
+  }
+});
 
 export default routerBooking;

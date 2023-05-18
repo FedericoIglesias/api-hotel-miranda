@@ -1,7 +1,7 @@
 import express from "express";
 import * as roomsService from "../services/roomsService";
 import { verifyNewRoom } from "../utils/roomsUtils";
-import { verifyIdDelete } from "../functions";
+import { verifyId } from "../functions";
 
 const routerRoom = express.Router();
 
@@ -10,13 +10,18 @@ routerRoom.get("/", async (req, res) => {
 });
 
 routerRoom.get("/:id", async (req, res) => {
-  const room = await roomsService.getIdRoom(req.params.id);
-  return room !== undefined ? res.send(room) : res.send(404);
+  try{
+    const id = verifyId(req.params.id.toString())
+    const room = await roomsService.getIdRoom(id);
+    return room !== undefined ? res.send(room) : res.send(404);
+  }catch(e){
+    res.status(400).send((<Error>e).message)
+  }
 });
 
 routerRoom.delete("/", async (req, res) => {
     try{
-        const id = verifyIdDelete(req.body);
+        const id = verifyId(req.body);
 
         const newRooms =  await roomsService.deleteRoom(id);
 

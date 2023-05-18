@@ -27,18 +27,18 @@ export type AddNewRoom = Omit<Room, "id">;
 export interface Booking {
   id: number;
   name: string;
-  orderDate: Date;
-  checkIn: Date;
-  checkOut: Date;
+  orderDate: number;
+  checkIn: number;
+  checkOut: number;
   idRoom: number;
   status: StatusBook;
 }
 export interface BookingSchema extends Mongoose{
   id: number;
   name: string;
-  orderDate: Date;
-  checkIn: Date;
-  checkOut: Date;
+  orderDate: number;
+  checkIn: number;
+  checkOut: number;
   idRoom: number;
   status: StatusBook;
 }
@@ -49,7 +49,7 @@ export interface User {
   id: number;
   name: string;
   email: string;
-  startDate: Date;
+  startDate: number;
   description: string;
   phone: string;
   status: StatusUser;
@@ -59,7 +59,7 @@ export interface UserSchema extends Mongoose{
   id: number;
   name: string;
   email: string;
-  startDate: Date;
+  startDate: number;
   description: string;
   phone: string;
   status: StatusUser;
@@ -73,7 +73,7 @@ export interface Contact {
   name: string;
   email: string;
   phone: string;
-  date: Date;
+  date: number;
   subject: string;
 }
 export interface ContactSchema extends Mongoose{
@@ -81,7 +81,7 @@ export interface ContactSchema extends Mongoose{
   name: string;
   email: string;
   phone: string;
-  date: Date;
+  date: number;
   subject: string;
 }
 

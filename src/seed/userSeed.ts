@@ -7,7 +7,7 @@ import { StatusUser } from "../enum";
   return {
     name: faker.person.fullName(),
     email: faker.internet.email(),
-    startDate: new Date(faker.date.past()),
+    startDate: new Date(faker.date.past()).getTime(),
     description: faker.lorem.words(10),
     phone: faker.phone.number("###-###-###"),
     status: faker.helpers.arrayElement([StatusUser.Active, StatusUser.Inactive]),

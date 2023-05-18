@@ -3,9 +3,10 @@ import { StatusBook } from "../enum";
 
 const bookingSchema = new Schema({
     name: String,
-    orderDate: Date,
-    checkIn: Date,
-    checkOut: Date,
+    orderDate: Number,
+    checkIn: Number,
+    checkOut: Number,
+    idRoom: Number,
     status: {type: StatusBook}
   })
 

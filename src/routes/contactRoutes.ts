@@ -1,7 +1,7 @@
 import express from "express";
 import * as contactService from "../services/contactService";
 import { verifyNewcontact } from "../utils/contactUtils";
-import { verifyIdDelete } from "../functions";
+import { verifyId } from "../functions";
 
 const routerContact = express.Router();
 
@@ -10,13 +10,18 @@ routerContact.get("/", (req, res) => {
 });
 
 routerContact.get("/:id", (req, res) => {
-  const contact = contactService.getIdContact(req.params.id);
-  return contact !== undefined ? res.send(contact) : res.send(404);
+  try{
+    const id = verifyId(req.params.id.toString())
+    const contact = contactService.getIdContact(id);
+    return contact !== undefined ? res.send(contact) : res.send(404);
+  } catch(e){
+    res.status(400).send((<Error>e).message)
+  }
 });
 
 routerContact.delete("/", (req, res) => {
     try{
-        const id = verifyIdDelete(req.body);
+        const id = verifyId(req.body);
 
         const newContacts = contactService.deleteContacts(id);
 

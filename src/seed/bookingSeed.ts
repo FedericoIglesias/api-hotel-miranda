@@ -6,9 +6,9 @@ import { StatusBook } from "../enum";
 const createRandomBooking = (): AddNewBooking => {
   return {
     name: faker.person.fullName(),
-    orderDate: new Date(faker.date.past()),
-    checkIn: new Date(faker.date.past()),
-    checkOut: new Date(faker.date.past()),
+    orderDate: new Date(faker.date.past()).getTime(),
+    checkIn: new Date(faker.date.past()).getTime(),
+    checkOut: new Date(faker.date.past()).getTime(),
     idRoom : faker.number.int({min:1, max:4}),
     status: faker.helpers.arrayElement([
       StatusBook.CheckIn,

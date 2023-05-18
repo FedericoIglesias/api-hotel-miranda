@@ -4,7 +4,7 @@ const contactSchema = new Schema({
   name: String,
   email: String,
   phone: String,
-  date: Date,
+  date: Number,
   subject: String,
 });
 
