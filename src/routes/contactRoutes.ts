@@ -2,28 +2,29 @@ import express from "express";
 import * as contactService from "../services/contactService";
 import { verifyNewcontact } from "../utils/contactUtils";
 import { verifyId } from "../functions";
+import { UserModel } from "../mongoose/userModel";
 
 const routerContact = express.Router();
 
-routerContact.get("/", (req, res) => {
-  res.send(contactService.getContacts());
+routerContact.get("/", async (req, res) => {
+  res.send(await contactService.getContacts());
 });
 
-routerContact.get("/:id", (req, res) => {
+routerContact.get("/:id", async (req, res) => {
   try{
-    const id = verifyId(req.params.id.toString())
-    const contact = contactService.getIdContact(id);
+    const id = verifyId(req.params.id)
+    const contact = await await contactService.getIdContact(id);
     return contact !== undefined ? res.send(contact) : res.send(404);
   } catch(e){
     res.status(400).send((<Error>e).message)
   }
 });
 
-routerContact.delete("/", (req, res) => {
+routerContact.delete("/", async (req, res) => {
     try{
-        const id = verifyId(req.body);
+        const id = verifyId(req.body.id);
 
-        const newContacts = contactService.deleteContacts(id);
+        const newContacts = await contactService.deleteContacts(id);
 
         res.send(newContacts)
 
@@ -32,11 +33,11 @@ routerContact.delete("/", (req, res) => {
     }
 });
 
-routerContact.post("/", (req, res) => {
+routerContact.post("/", async (req, res) => {
   try {
     const veryfycontactReq = verifyNewcontact(req.body);
 
-    const createNewContact = contactService.addContact(veryfycontactReq);
+    const createNewContact = await contactService.addContact(veryfycontactReq);
 
     res.json(createNewContact);
   } catch (e) {
@@ -44,6 +45,13 @@ routerContact.post("/", (req, res) => {
   }
 });
 
-routerContact.put("/", (req, res) => {});
+routerContact.put("/", async (req, res) => {
+  try{
+    const contact = await contactService.putContacts(req.body.id ,req.body.obj)
+    res.json(contact)
+  }catch(e){
+    throw new Error ((<Error>e).message)
+  }
+});
 
 export default routerContact;

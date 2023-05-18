@@ -6,8 +6,8 @@ export const verifyNewcontact = (obj:any): AddNewContact =>{
     const newContact: AddNewContact ={
         name: parse(obj.name, 'name', 'string'),
         email: parse(obj.email, 'email','string'),
-        phone: parse(obj.phone, 'phone', 'number'),
-        date: parse(obj.date, 'date', 'date'),
+        phone: parse(obj.phone, 'phone', 'string'),
+        date: parse(obj.date, 'date', 'number'),
         subject: parse(obj.subject, "subject", 'string')
     }
     return newContact

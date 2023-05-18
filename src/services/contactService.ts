@@ -1,4 +1,3 @@
-import { write } from "../functions";
 import { AddNewContact, Contact } from "../types";
 import { connectMongoDB } from "../mongo";
 import { ContactModel } from "../mongoose/contactModel";
@@ -8,7 +7,7 @@ import { response } from "express";
 export const getContacts = async (): Promise<any> => {
   try{
     await connectMongoDB()
-    const contacts = await ContactModel.find({})
+    return await ContactModel.find({})
   } catch(e){
     throw new Error((<Error>e).message)
   }
@@ -19,6 +18,7 @@ export const getIdContact = async (id: string)=> {
   try{
     await connectMongoDB()
     const contact = await ContactModel.findById(id)
+    return contact !== null? contact : 'Id no found'
   }catch(e){
     throw new Error((<Error>e).message)
   }
@@ -53,7 +53,7 @@ export const addContact = async (addNewContact: AddNewContact ) => {
         
 }
 
-export const putContacts = async (id: string , putKey: Partial<Contact> ) => {
+export const putContacts = async (id: string , putKey: AddNewContact ) => {
   try{
     await connectMongoDB()
     const contact = await ContactModel.findByIdAndUpdate(id , putKey)
