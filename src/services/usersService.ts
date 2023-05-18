@@ -1,7 +1,6 @@
 import { AddNewUser, User } from "../types";
 import { connectMongoDB } from "../mongo";
 import { UserModel } from "../mongoose/userModel";
-import { response } from "express";
 
 export const getUsers = async () => {
   try {
@@ -9,18 +8,17 @@ export const getUsers = async () => {
     const users = await UserModel.find({});
     return users;
   } catch (e) {
-    console.log(e);
-    return e;
+    throw new Error((<Error>e).message);
   }
 };
 
 export const getIdUser = async (id: string) => {
-  try{
-    await connectMongoDB();  
-    const user = UserModel.findById(id);
-    return user;
-  } catch (e){
-    console.log(e);
+  try {
+    await connectMongoDB();
+    const user = await UserModel.findById(id);
+    return user !== null? user : 'Id no found';
+  } catch (e) {
+    throw new Error((<Error>e).message);
   }
 };
 
@@ -39,16 +37,25 @@ export const addUser = async (addNewUser: AddNewUser) => {
     await newUser.save();
     return newUser;
   } catch (e) {
-    console.log(e);
+    throw new Error((<Error>e).message);
   }
 };
 
 export const deleteUser = async (id: string) => {
-  try{
-    await connectMongoDB()
-    await UserModel.findByIdAndDelete(id)
-  } catch (e){
-    console.log(e);
-    
+  try {
+    await connectMongoDB();
+    await UserModel.findByIdAndDelete(id);
+  } catch (e) {
+    throw new Error((<Error>e).message);
+  }
+};
+
+export const putUser = async (id: string, putUser: AddNewUser) => {
+  try {
+    await connectMongoDB();
+    await UserModel.findByIdAndUpdate(id, putUser);
+    return await UserModel.findById(id);
+  } catch (e) {
+    throw new Error((<Error>e).message);
   }
 };

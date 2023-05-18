@@ -23,8 +23,7 @@ const parseId = (idFromReq: string): string => {
   return idFromReq
 }
 
-export const verifyId = (obj:any): string => {
+export const verifyId = (obj:string): string => {
   const id = parseId(obj)
-  
   return id
 }

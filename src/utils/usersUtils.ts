@@ -15,9 +15,9 @@ export const verifyNewUser = (obj: any): AddNewUser => {
 const newUser = {
     name: parse(obj.name, 'name', 'string'),
     email: parse(obj.email, 'email', 'string'),
-    startDate: parse(obj.startDate, 'startDate', 'date'),
+    startDate: parse(obj.startDate, 'startDate', 'number'),
     description: parse(obj.description, 'description', 'string'),
-    phone: parse(obj.phone, 'phone', 'number'),
+    phone: parse(obj.phone, 'phone', 'string'),
     status: parseStatus(obj.status),
     password: parse(obj.password, 'password', 'string'),
 }

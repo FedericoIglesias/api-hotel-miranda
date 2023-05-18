@@ -1,42 +1,41 @@
 import express from "express";
-import * as usersService from '../services/usersService'
+import * as usersService from "../services/usersService";
 import { verifyNewUser } from "../utils/usersUtils";
 import { verifyId } from "../functions";
 
 const routerUser = express.Router();
 
-routerUser.get("/", (req, res) => {
-  res.send(usersService.getUsers());
+routerUser.get("/", async (req, res) => {
+  res.send(await usersService.getUsers());
 });
 
-routerUser.get("/:id", (req, res) => {
-  try{
-    const id = verifyId(req.params.id.toString())
-    const User = usersService.getIdUser(id);
-    return User !== undefined ? res.send(User) : res.send(404);
-  }catch(e){
-    res.send(400).send((<Error>e).message)
+routerUser.get("/:id", async (req, res) => {
+  try {
+    const id = verifyId(req.params.id);
+    const user = await usersService.getIdUser(id);
+    return user !== undefined ? res.send(user) : res.send(404);
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
   }
 });
 
-routerUser.delete("/", (req, res) => {
-    try{
-        const id = verifyId(req.body);
+routerUser.delete("/", async (req, res) => {
+  try {
+    const id = verifyId(req.body.id);
 
-        const newUsers = usersService.deleteUser(id);
+    const newUsers = await usersService.deleteUser(id);
 
-        res.send(newUsers)
-
-    } catch (e){
-        res.status(400).send((<Error>e).message)
-    }
+    res.send(newUsers);
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
+  }
 });
 
-routerUser.post("/", (req, res) => {
+routerUser.post("/", async (req, res) => {
   try {
     const veryfyUserReq = verifyNewUser(req.body);
 
-    const createNewUser = usersService.addUser(veryfyUserReq);
+    const createNewUser = await usersService.addUser(veryfyUserReq);
 
     res.json(createNewUser);
   } catch (e) {
@@ -44,6 +43,13 @@ routerUser.post("/", (req, res) => {
   }
 });
 
-routerUser.put("/", (req, res) => {});
+routerUser.put("/", async (req, res) => {
+  try {
+    const user = await usersService.putUser(req.body.id, req.body.obj);
+    res.json(user);
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
+  }
+});
 
 export default routerUser;

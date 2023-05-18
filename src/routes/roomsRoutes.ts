@@ -10,26 +10,25 @@ routerRoom.get("/", async (req, res) => {
 });
 
 routerRoom.get("/:id", async (req, res) => {
-  try{
-    const id = verifyId(req.params.id)
+  try {
+    const id = verifyId(req.params.id);
     const room = await roomsService.getIdRoom(id);
     return room !== undefined ? res.send(room) : res.send(404);
-  }catch(e){
-    res.status(400).send((<Error>e).message)
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
   }
 });
 
 routerRoom.delete("/", async (req, res) => {
-    try{
-        const id = verifyId(req.body.id);
+  try {
+    const id = verifyId(req.body.id);
 
-        const newRooms =  await roomsService.deleteRoom(id);
+    const newRooms = await roomsService.deleteRoom(id);
 
-        res.send(newRooms)
-
-    } catch (e){
-        res.status(400).send((<Error>e).message)
-    }
+    res.send(newRooms);
+  } catch (e) {
+    res.status(400).send((<Error>e).message);
+  }
 });
 
 routerRoom.post("/", async (req, res) => {
@@ -45,9 +44,9 @@ routerRoom.post("/", async (req, res) => {
 });
 
 routerRoom.put("/", async (req, res) => {
-  try{
-    const room = await roomsService.putRoom(req.body.id, req.body.obj)
-    res.json(room)
+  try {
+    const room = await roomsService.putRoom(req.body.id, req.body.obj);
+    res.json(room);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
