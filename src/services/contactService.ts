@@ -1,4 +1,4 @@
-import { AddNewContact, Contact } from "../types";
+import { AddNewContact } from "../types";
 import { connectMongoDB } from "../mongo";
 import { ContactModel } from "../mongoose/contactModel";
 import { response } from "express";
