@@ -8,14 +8,14 @@ import { verifyId } from "../functions";
 const routerBooking = express.Router();
 
 routerBooking.get("/", async (req, res) => {
-  res.send(await bookingsService.getBookings());
+  return res.send({Bookings: await bookingsService.getBookings()});
 });
 
 routerBooking.get("/:id", async (req, res) => {
   try{
     const  id = verifyId(req.params.id)
     const booking = await bookingsService.getIdBooking(id);
-    return booking !== undefined ? res.send(booking) : res.send(404);
+    return booking !== undefined ? res.send({Booking: booking}) : res.send(404);
   }catch(e){
     res.status(400).send((<Error>e).message)
   }
@@ -25,9 +25,9 @@ routerBooking.delete("/", async (req, res) => {
     try{
         const id = verifyId(req.body.id);
 
-        const booking = await bookingsService.deleteBooking(id);
+        await bookingsService.deleteBooking(id);
 
-        res.send(booking)
+        return res.send(`Id ${id} was delete`)
 
     } catch (e){
         res.status(400).send((<Error>e).message)
@@ -40,7 +40,7 @@ routerBooking.post("/", async (req, res) => {
 
     const createNewBook = await bookingsService.addBooking(veryfyBookReq);
 
-    res.json(createNewBook);
+    return res.json({Book: createNewBook});
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
@@ -49,7 +49,7 @@ routerBooking.post("/", async (req, res) => {
 routerBooking.put("/", async (req, res) => {
   try{
     const book = await bookingsService.putBooking(req.body.id, req.body.obj)
-    res.json(book)
+    return res.json({Book: book})
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
