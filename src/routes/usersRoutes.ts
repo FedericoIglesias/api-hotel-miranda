@@ -6,14 +6,14 @@ import { verifyId } from "../functions";
 const routerUser = express.Router();
 
 routerUser.get("/", async (req, res) => {
-  res.send(await usersService.getUsers());
+  return res.json({Users: await usersService.getUsers()});
 });
 
 routerUser.get("/:id", async (req, res) => {
   try {
     const id = verifyId(req.params.id);
     const user = await usersService.getIdUser(id);
-    return user !== undefined ? res.send(user) : res.send(404);
+    return user !== undefined ? res.json({user: user}) : res.send(404);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
@@ -23,9 +23,9 @@ routerUser.delete("/", async (req, res) => {
   try {
     const id = verifyId(req.body.id);
 
-    const newUsers = await usersService.deleteUser(id);
+    await usersService.deleteUser(id);
 
-    res.send(newUsers);
+    return res.send(`Id ${id} was delete`);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
@@ -37,7 +37,7 @@ routerUser.post("/", async (req, res) => {
 
     const createNewUser = await usersService.addUser(veryfyUserReq);
 
-    res.json(createNewUser);
+    return res.json({NewUSer: createNewUser});
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
@@ -46,7 +46,7 @@ routerUser.post("/", async (req, res) => {
 routerUser.put("/", async (req, res) => {
   try {
     const user = await usersService.putUser(req.body.id, req.body.obj);
-    res.json(user);
+    return res.json({user: user});
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
