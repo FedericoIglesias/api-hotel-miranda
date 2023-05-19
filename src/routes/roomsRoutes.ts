@@ -25,7 +25,7 @@ routerRoom.delete("/", async (req, res) => {
 
     const newRooms = await roomsService.deleteRoom(id);
 
-    return res.send(`Id ${id} was delete`);
+    return res.send(`Id ${id} was delete`)
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
