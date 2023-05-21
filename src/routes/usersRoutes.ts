@@ -33,7 +33,7 @@ routerUser.delete("/", async (req, res) => {
 
 routerUser.post("/", async (req, res) => {
   try {
-    const veryfyUserReq = verifyNewUser(req.body);
+    const veryfyUserReq = await verifyNewUser(req.body);
 
     const createNewUser = await usersService.addUser(veryfyUserReq);
 

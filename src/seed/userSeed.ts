@@ -2,8 +2,9 @@ import { faker } from "@faker-js/faker";
 import { AddNewUser } from "../types";
 import * as userService from '../services/usersService'
 import { StatusUser } from "../enum";
+import bcrypt from 'bcrypt'
 
- function createRandomUser(): AddNewUser {
+const  createRandomUser= async (): Promise<AddNewUser> => {
   return {
     name: faker.person.fullName(),
     email: faker.internet.email(),
@@ -11,14 +12,14 @@ import { StatusUser } from "../enum";
     description: faker.lorem.words(10),
     phone: faker.phone.number("###-###-###"),
     status: faker.helpers.arrayElement([StatusUser.Active, StatusUser.Inactive]),
-    password: faker.internet.password(),
+    password: await bcrypt.hash(faker.internet.password(), 10),
   };
 }
 
 
 export const  generateUser = async (cant: number) =>{
   for(let i = 0; i < cant; i++){
-    const user = createRandomUser()
+    const user = await createRandomUser()
     await userService.addUser(user)
   }
 }
