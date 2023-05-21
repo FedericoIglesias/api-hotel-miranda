@@ -1,5 +1,4 @@
 import { response } from "express";
-import { connectMongoDB } from "../mongo";
 import { UserModel } from "../mongoose/userModel";
 import { User } from "../types";
 import jwt from "jsonwebtoken";
@@ -15,7 +14,11 @@ export const initialiSession = async (body: any) => {
       return "Name or Password invalid";
     }
 
-    const token = jwt.sign({ id: user[0]._id, name: user[0].name }, wordSecret);
+    const token = jwt.sign(
+      { id: user[0]._id, name: user[0].name },
+      wordSecret,
+      {expiresIn: '1h'}
+    );
 
     return token;
   } catch (e) {

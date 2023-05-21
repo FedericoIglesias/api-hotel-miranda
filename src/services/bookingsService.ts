@@ -35,10 +35,9 @@ export const addBooking = async (
     const book = await newBook.save();
     return book;
   } catch (e) {
-    console.log(e);
+    throw new Error((<Error>e).message);
   }
 };
-
 export const deleteBooking = async (id: string) => {
   try {
     await BookingModel.findByIdAndDelete(id);

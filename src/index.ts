@@ -5,6 +5,7 @@ import routerUser from "./routes/usersRoutes";
 import routerContact from "./routes/contactRoutes";
 import routerLogin from "./routes/loginRoutes";
 import { connectMongoDB } from "./mongo";
+import { authToken } from "./middlerware/authToken";
 require('dotenv').config()
 
 connectMongoDB();
@@ -16,10 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 
-app.use("/rooms", routerRoom);
-app.use("/bookings", routerBooking);
-app.use("/users", routerUser);
-app.use("/contacts", routerContact);
+app.use("/rooms", authToken, routerRoom);
+app.use("/bookings", authToken, routerBooking);
+app.use("/users", authToken, routerUser);
+app.use("/contacts", authToken, routerContact);
 app.use("/login", routerLogin)
 
 app.listen(PORT, () => {
