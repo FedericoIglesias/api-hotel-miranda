@@ -27,9 +27,6 @@ export const authToken = (req: any, res: any, next: NextFunction) => {
         
         req.body.info = decodedToken;
         
-        console.log(req.body);
-        
-
         next();
     } catch (e){
         res.status(400).send((<Error>e).message)

@@ -3,7 +3,7 @@ import { Schema } from 'mongoose';
 import { StatusRoom, TypeRoom } from '../enum';
 
 const roomSchema = new Schema({
-    photo: String,
+    photo: [String],
     numberRoom: String,
     roomType: { type: TypeRoom },
     amenities: [String],
@@ -14,12 +14,3 @@ const roomSchema = new Schema({
 
   export const RoomModel = model('Room', roomSchema)
 
-  // const room1 = new Room({
-  //   photo: 'asd',
-  //   numberRoom: 'asd',
-  //   roomType: TypeRoom.Deluxe,
-  //   amenities: 'asd',
-  //   price: 0,
-  //   offerPercent: 0,
-  //   status: StatusRoom.Available
-  // })

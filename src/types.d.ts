@@ -3,7 +3,7 @@ import { StatusBook, StatusRoom, StatusUser, TypeRoom } from "./enum";
 
 export interface Room {
   _id: number;
-  photo: any;
+  photo: string[];
   numberRoom: number;
   roomType: TypeRoom;
   amenities: string[];
@@ -13,7 +13,7 @@ export interface Room {
 }
 export interface RoomSchema extends Mongoose {
   _id: number;
-  photo: any;
+  photo: string[];
   numberRoom: number;
   roomType: TypeRoom;
   amenities: string[];
@@ -48,6 +48,7 @@ export type AddNewBooking = Omit<Booking, "_id">;
 export interface User {
   _id: number;
   name: string;
+  photo: string
   email: string;
   startDate: number;
   description: string;
@@ -56,8 +57,9 @@ export interface User {
   password: string;
 }
 export interface UserSchema extends Mongoose{
-  id: number;
+  _id: number;
   name: string;
+  photo: string
   email: string;
   startDate: number;
   description: string;

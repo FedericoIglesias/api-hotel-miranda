@@ -24,6 +24,7 @@ export const addUser = async (addNewUser: AddNewUser) => {
     const newUser = new UserModel({
       name: addNewUser.name,
       email: addNewUser.email,
+      photo: addNewUser.photo,
       startDate: addNewUser.startDate,
       description: addNewUser.description,
       phone: addNewUser.phone,
