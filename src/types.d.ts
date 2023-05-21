@@ -2,7 +2,7 @@ import { Mongoose } from "./mongoose/roomModel";
 import { StatusBook, StatusRoom, StatusUser, TypeRoom } from "./enum";
 
 export interface Room {
-  id: number;
+  _id: number;
   photo: any;
   numberRoom: number;
   roomType: TypeRoom;
@@ -12,7 +12,7 @@ export interface Room {
   status: StatusRoom;
 }
 export interface RoomSchema extends Mongoose {
-  id: number;
+  _id: number;
   photo: any;
   numberRoom: number;
   roomType: TypeRoom;
@@ -22,10 +22,10 @@ export interface RoomSchema extends Mongoose {
   status: StatusRoom;
 }
 
-export type AddNewRoom = Omit<Room, "id">;
+export type AddNewRoom = Omit<Room, "_id">;
 
 export interface Booking {
-  id: number;
+  _id: number;
   name: string;
   orderDate: number;
   checkIn: number;
@@ -34,7 +34,7 @@ export interface Booking {
   status: StatusBook;
 }
 export interface BookingSchema extends Mongoose{
-  id: number;
+  _id: number;
   name: string;
   orderDate: number;
   checkIn: number;
@@ -43,10 +43,10 @@ export interface BookingSchema extends Mongoose{
   status: StatusBook;
 }
 
-export type AddNewBooking = Omit<Booking, "id">;
+export type AddNewBooking = Omit<Booking, "_id">;
 
 export interface User {
-  id: number;
+  _id: number;
   name: string;
   email: string;
   startDate: number;
@@ -66,10 +66,10 @@ export interface UserSchema extends Mongoose{
   password: string;
 }
 
-export type AddNewUser = Omit<User, "id">;
+export type AddNewUser = Omit<User, "_id">;
 
 export interface Contact {
-  id: number;
+  _id: number;
   name: string;
   email: string;
   phone: string;
@@ -77,7 +77,7 @@ export interface Contact {
   subject: string;
 }
 export interface ContactSchema extends Mongoose{
-  id: number;
+  _id: number;
   name: string;
   email: string;
   phone: string;
@@ -85,4 +85,4 @@ export interface ContactSchema extends Mongoose{
   subject: string;
 }
 
-export type AddNewContact = Omit<Contact, "id">;
+export type AddNewContact = Omit<Contact, "_id">;

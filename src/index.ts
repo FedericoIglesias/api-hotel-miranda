@@ -3,13 +3,12 @@ import routerRoom from "./routes/roomsRoutes";
 import routerBooking from "./routes/bookingsRoutes";
 import routerUser from "./routes/usersRoutes";
 import routerContact from "./routes/contactRoutes";
+import routerLogin from "./routes/loginRoutes";
+import { connectMongoDB } from "./mongo";
 require('dotenv').config()
 
-
+connectMongoDB();
 const app = express();
-
-app.use(express.json());
-
 const PORT = process.env.PORT;
 
 app.use(express.json());
@@ -21,7 +20,7 @@ app.use("/rooms", routerRoom);
 app.use("/bookings", routerBooking);
 app.use("/users", routerUser);
 app.use("/contacts", routerContact);
-
+app.use("/login", routerLogin)
 
 app.listen(PORT, () => {
   console.log(`Server run in the port ${PORT}`);

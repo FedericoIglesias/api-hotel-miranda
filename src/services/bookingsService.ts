@@ -1,11 +1,9 @@
 import { response } from "express";
-import { connectMongoDB } from "../mongo";
 import { BookingModel } from "../mongoose/bookingModel";
 import { AddNewBooking, Booking } from "../types";
 
 export const getBookings = async (): Promise<Booking[]> => {
   try {
-    await connectMongoDB();
     const bookings = await BookingModel.find({});
     return bookings;
   } catch (e) {
@@ -15,17 +13,17 @@ export const getBookings = async (): Promise<Booking[]> => {
 
 export const getIdBooking = async (id: string): Promise<Booking | string> => {
   try {
-    await connectMongoDB();
-    const book = await BookingModel.findById(id);    
-    return book !== null ? book : 'no found id'
+    const book = await BookingModel.findById(id);
+    return book !== null ? book : "no found id";
   } catch (e) {
     throw new Error((<Error>e).message);
   }
 };
 
-export const addBooking = async (addNewBooking: AddNewBooking): Promise<any> => {
+export const addBooking = async (
+  addNewBooking: AddNewBooking
+): Promise<any> => {
   try {
-    connectMongoDB();
     const newBook = new BookingModel({
       name: addNewBooking.name,
       orderDate: addNewBooking.orderDate,
@@ -38,13 +36,11 @@ export const addBooking = async (addNewBooking: AddNewBooking): Promise<any> => 
     return book;
   } catch (e) {
     console.log(e);
-    
   }
 };
 
 export const deleteBooking = async (id: string) => {
   try {
-    await connectMongoDB();
     await BookingModel.findByIdAndDelete(id);
     return response.send(200);
   } catch (e) {
@@ -52,11 +48,13 @@ export const deleteBooking = async (id: string) => {
   }
 };
 
-export const putBooking = async (id: string, putKey: Partial<Booking>): Promise<Partial<Booking>> => {
+export const putBooking = async (
+  id: string,
+  putKey: Partial<Booking>
+): Promise<Partial<Booking>> => {
   try {
-    await connectMongoDB();
     const book = await BookingModel.findByIdAndUpdate(id, putKey);
-    return book
+    return book;
   } catch (e) {
     throw new Error((<Error>e).message);
   }
