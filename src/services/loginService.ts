@@ -20,7 +20,7 @@ export const initialiSession = async (body: any) => {
       {expiresIn: '1h'}
     );
 
-    return token;
+    return {token: token, name: user.name, email: user.email};
   } catch (e) {
     response.status(400).send((<Error>e).message);
   }
