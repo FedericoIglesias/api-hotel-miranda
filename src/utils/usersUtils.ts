@@ -15,6 +15,7 @@ export const verifyNewUser = async (obj: any): Promise<AddNewUser> => {
 const newUser = {
     name: parse(obj.name, 'name', 'string'),
     email: parse(obj.email, 'email', 'string'),
+    photo: obj.photo,
     startDate: parse(obj.startDate, 'startDate', 'number'),
     description: parse(obj.description, 'description', 'string'),
     phone: parse(obj.phone, 'phone', 'string'),

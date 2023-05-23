@@ -8,14 +8,14 @@ const wordSecret = process.env.KEY_TOKEN as string;
 
 export const initialiSession = async (body: any) => {
   try {
-    const user: User[] = await UserModel.find({ name: body.name });
-
-    if (body.password !== user[0].password) {
+    const user: User = await UserModel.findOne({ name: body.name });
+    
+    if (user === null || body.password !== user.password ) {
       return "Name or Password invalid";
     }
 
     const token = jwt.sign(
-      { id: user[0]._id, name: user[0].name },
+      { id: user._id, name: user.name },
       wordSecret,
       {expiresIn: '1h'}
     );

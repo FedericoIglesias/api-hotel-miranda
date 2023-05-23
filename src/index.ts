@@ -6,6 +6,7 @@ import routerContact from "./routes/contactRoutes";
 import routerLogin from "./routes/loginRoutes";
 import { connectMongoDB } from "./mongo";
 import { authToken } from "./middlerware/authToken";
+import cors from 'cors'
 require('dotenv').config()
 
 connectMongoDB();
@@ -14,7 +15,7 @@ const PORT = process.env.PORT;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors())
 
 
 app.use("/rooms", authToken, routerRoom);

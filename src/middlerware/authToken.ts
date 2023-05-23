@@ -4,8 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 export const authToken = (req: any, res: any, next: NextFunction) => {
     try{
         
-        
-        const authorization = req.get("authorization")
+         const authorization = req.get("authorization")
 
         
 
