@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { AddNewUser } from "../types";
 import * as userService from "../services/usersService";
-import { StatusUser } from "../enum";
+import { StatusUser, TypeJob } from "../enum";
 import bcrypt from "bcrypt";
 
 const createRandomUser = async (): Promise<AddNewUser> => {
@@ -10,7 +10,12 @@ const createRandomUser = async (): Promise<AddNewUser> => {
     email: faker.internet.email(),
     photo: faker.image.avatar(),
     startDate: new Date(faker.date.past()).getTime(),
-    description: faker.lorem.words(10),
+    job: faker.helpers.arrayElement([
+      TypeJob.Cleaner,
+      TypeJob.Manager,
+      TypeJob.Receptionist
+    ]),
+    schedule: faker.date.weekday(),
     phone: faker.phone.number("###-###-###"),
     status: faker.helpers.arrayElement([
       StatusUser.Active,
@@ -25,4 +30,15 @@ export const generateUser = async (cant: number) => {
     const user = await createRandomUser();
     await userService.addUser(user);
   }
+  await userService.addUser({
+name:"admin",
+email: "admin@hotmail.com",
+photo:"https://avatars.githubusercontent.com/u/11509470",
+startDate: 1583105012514,
+job:TypeJob.Manager,
+schedule: "Tuesday",
+phone: "816-379-399",
+status: StatusUser.Active,
+password: "admin",
+  });
 };

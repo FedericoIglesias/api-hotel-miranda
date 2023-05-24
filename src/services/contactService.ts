@@ -27,6 +27,8 @@ export const addContact = async (addNewContact: AddNewContact) => {
       phone: addNewContact.phone,
       date: addNewContact.date,
       subject: addNewContact.subject,
+      comment: addNewContact.comment,
+      photo: addNewContact.photo
     });
     const contact = await newContact.save();
     return contact;

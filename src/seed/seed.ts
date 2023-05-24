@@ -7,10 +7,10 @@ import { generateUser } from "./userSeed";
 
 async function generateDB() {
   connectMongoDB()
-    await generateBooking(24);
-    await generateContact(15);
-    await generateRoom(4);
-    await generateUser(6);
+    // await generateBooking(24);
+    // await generateContact(15);
+    // await generateRoom(4);
+    // await generateUser(6);
     console.log('end');
     
   }

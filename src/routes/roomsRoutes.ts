@@ -1,19 +1,18 @@
 import express from "express";
 import * as roomsService from "../services/roomsService";
-import { verifyNewRoom } from "../utils/roomsUtils";
 import { verifyId } from "../functions";
 
 const routerRoom = express.Router();
 
 routerRoom.get("/", async (req, res) => {
-  return res.json({ Rooms: await roomsService.getRooms() });
+  return res.json(await roomsService.getRooms());
 });
 
 routerRoom.get("/:id", async (req, res) => {
   try {
     const id = verifyId(req.params.id);
     const room = await roomsService.getIdRoom(id);
-    return room !== undefined ? res.json({ Room: room }) : res.send(404);
+    return room !== undefined ? res.json(room) : res.send(404);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }
@@ -33,9 +32,7 @@ routerRoom.delete("/", async (req, res) => {
 
 routerRoom.post("/", async (req, res) => {
   try {
-    const veryfyRoomReq = verifyNewRoom(req.body);
-
-    const createNewRoom = await roomsService.addRoom(veryfyRoomReq);
+    const createNewRoom = await roomsService.addRoom(req.body);
 
     return res.json(createNewRoom);
   } catch (e) {

@@ -6,6 +6,8 @@ const contactSchema = new Schema({
   phone: String,
   date: Number,
   subject: String,
+  comment: String,
+  photo: String
 });
 
 export const ContactModel = model("Contact", contactSchema);

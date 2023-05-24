@@ -11,7 +11,9 @@ function createRandomContact(): AddNewContact {
       email: faker.internet.email(),
       phone: faker.phone.number("###-###-###"),
       date: new Date(faker.date.past()).getTime(),
-      subject: faker.lorem.word()
+      subject: faker.lorem.word(),
+      comment: faker.lorem.text(),
+      photo: faker.image.avatar()
     };
   }
 
