@@ -18,9 +18,9 @@ routerUser.get("/:id", async (req, res) => {
   }
 });
 
-routerUser.delete("/", async (req, res) => {
+routerUser.delete("/:id", async (req, res) => {
   try {
-    const id = verifyId(req.body.id);
+    const id = verifyId(req.params.id);
 
     await usersService.deleteUser(id);
 

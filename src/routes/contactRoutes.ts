@@ -18,9 +18,9 @@ routerContact.get("/:id", async (req, res) => {
   }
 });
 
-routerContact.delete("/", async (req, res) => {
+routerContact.delete("/:id", async (req, res) => {
   try {
-    const id = verifyId(req.body.id);
+    const id = verifyId(req.params.id);
 
     await contactService.deleteContacts(id);
 

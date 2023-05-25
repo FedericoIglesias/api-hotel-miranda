@@ -18,13 +18,13 @@ routerRoom.get("/:id", async (req, res) => {
   }
 });
 
-routerRoom.delete("/", async (req, res) => {
+routerRoom.delete("/:id", async (req, res) => {
   try {
-    const id = verifyId(req.body.id);
+    const id = verifyId(req.params.id);
 
-    const newRooms = await roomsService.deleteRoom(id);
+    await roomsService.deleteRoom(id);
 
-    return res.send(`Id ${id} was delete`);
+    return res.json(`Id ${id} was delete`);
   } catch (e) {
     res.status(400).send((<Error>e).message);
   }

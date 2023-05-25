@@ -18,9 +18,9 @@ routerBooking.get("/:id", async (req, res) => {
   }
 });
 
-routerBooking.delete("/", async (req, res) => {
+routerBooking.delete("/:id", async (req, res) => {
   try {
-    const id = verifyId(req.body.id);
+    const id = verifyId(req.params.id);
 
     await bookingsService.deleteBooking(id);
 

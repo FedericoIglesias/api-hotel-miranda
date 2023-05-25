@@ -41,7 +41,7 @@ export const addRoom = async (addNewRoom: AddNewRoom) => {
 export const deleteRoom = async (id: string) => {
   try {
     await RoomModel.findByIdAndDelete(id);
-    return response.send(200);
+    return 'response.send(200)';
   } catch (e) {
     throw new Error((<Error>e).message);
   }
