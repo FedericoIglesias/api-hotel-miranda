@@ -17,7 +17,7 @@ export const initialiSession = async (body: any) => {
     const token = jwt.sign(
       { id: user._id, name: user.name },
       wordSecret,
-      {expiresIn: '1h'}
+      {expiresIn: '365 days'}
     );
 
     return {token: token, name: user.name, email: user.email, photo: user.photo};
