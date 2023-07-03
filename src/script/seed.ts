@@ -4,10 +4,12 @@ import { generateContact } from "./contactScript";
 import { generateRoom } from "./roomScript";
 
 async function generateDB() {
-    await generateBooking(24);
-    await generateContact(17);
-    await generateRoom(4);
-    await generateUser(9);
+    // await generateBooking(24);
+    // await generateContact(17);
+    await generateRoom(30);
+    // await generateUser(9);
   }
   
   generateDB();
+  console.log('is done');
+  

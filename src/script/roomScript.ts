@@ -1,10 +1,10 @@
 import { faker } from "@faker-js/faker";
-import { AddNewRoomSQL } from "../types";
+import { AddNewRoom, AddNewRoomSQL } from "../types";
 import { StatusRoom, TypeRoom } from "../enum";
 import * as roomService from '../serviceSQL/roomsServiceSQL'
 
 
-const createRandomRoom = (): AddNewRoomSQL => {
+const createRandomRoom = (): AddNewRoom => {
    return {
     photo: faker.animal.bear(),
     numberRoom: faker.datatype.number({max: 20}),
