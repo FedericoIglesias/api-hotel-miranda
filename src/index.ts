@@ -9,7 +9,7 @@ import { authToken } from "./middlerware/authToken";
 import cors from 'cors';
 import dotenv from 'dotenv';
 
-dotenv.config()
+dotenv.config();
 
 connectMongoDB();
 const app = express();
