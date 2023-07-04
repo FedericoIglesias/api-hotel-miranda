@@ -7,7 +7,9 @@ import routerLogin from "./routes/loginRoutes";
 import { connectMongoDB } from "./mongo";
 import { authToken } from "./middlerware/authToken";
 import cors from 'cors'
-require('dotenv').config()
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 connectMongoDB();
 const app = express();
