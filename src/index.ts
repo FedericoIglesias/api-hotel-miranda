@@ -6,8 +6,8 @@ import routerContact from "./routes/contactRoutes";
 import routerLogin from "./routes/loginRoutes";
 import { connectMongoDB } from "./mongo";
 import { authToken } from "./middlerware/authToken";
-import cors from 'cors'
-import dotenv from 'dotenv'
+import cors from 'cors';
+import dotenv from 'dotenv';
 
 dotenv.config()
 
