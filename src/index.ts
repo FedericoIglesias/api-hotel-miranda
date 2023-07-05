@@ -10,7 +10,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 dotenv.config();
-event?.preventDefault
+
 
 connectMongoDB();
 const app = express();
