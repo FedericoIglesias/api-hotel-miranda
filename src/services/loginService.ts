@@ -2,7 +2,9 @@ import { response } from "express";
 import { UserModel } from "../mongoose/userModel";
 import { User } from "../types";
 import jwt from "jsonwebtoken";
-require("dotenv").config();
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const wordSecret = process.env.KEY_TOKEN as string;
 
