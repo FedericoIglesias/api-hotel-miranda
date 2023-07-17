@@ -4,7 +4,6 @@ import { User } from "../types";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
 
-
 dotenv.config();
 
 const wordSecret = process.env.KEY_TOKEN as string;
